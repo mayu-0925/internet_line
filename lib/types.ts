@@ -1,0 +1,56 @@
+export type RankingItem = {
+  rank: number;
+  name: string;
+  label: string;
+  description: string;
+  speed: string;
+  price: string;
+  tags: { text: string; variant: "cool" | "warm" | "green" }[];
+  reward: { label: string; value: string };
+  rating: number;
+  ratingCount: number;
+  affiliateUrl: string;
+  ctaColor: string; // Tailwind bg class e.g. "bg-orange-400 hover:bg-orange-500"
+  badgeGradient: string; // Tailwind gradient class
+};
+
+// 記事本文のコンテンツブロック
+export type ContentBlock =
+  | { type: "heading2"; text: string }
+  | { type: "heading3"; text: string }
+  | { type: "paragraph"; text: string }
+  | { type: "list"; items: string[] }
+  | { type: "callout"; emoji: string; text: string }
+  | { type: "ranking_cta"; rankIndex: number }; // rankingItems[rankIndex] を表示
+
+export type Article = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  categoryColor: "orange" | "blue" | "green";
+  emoji: string;
+  publishedAt: string;
+  content?: ContentBlock[]; // 本文（未設定の場合は「準備中」表示）
+};
+
+export type SiteAlert = {
+  message: string;
+  linkText: string;
+  linkHref: string;
+};
+
+export type HeroStat = {
+  value: string;
+  label: string;
+  color: string; // Tailwind text class
+};
+
+export type HowToStep = {
+  step: number;
+  emoji: string;
+  title: string;
+  description: string;
+  bgColor: string;
+  stepColor: string;
+};
