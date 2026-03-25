@@ -7,6 +7,20 @@ type Props = {
   rankingItems: RankingItem[];
 };
 
+// **太字** と ==マーカー== をインラインレンダリング
+function renderInlineText(text: string): React.ReactNode[] {
+  const parts = text.split(/(\*\*[^*]+\*\*|==[^=]+==)/);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={i} className="font-bold text-gray-900">{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith("==") && part.endsWith("==")) {
+      return <mark key={i} className="bg-yellow-200 text-gray-900 rounded px-0.5">{part.slice(2, -2)}</mark>;
+    }
+    return part;
+  });
+}
+
 export default function ArticleBody({ blocks, rankingItems }: Props) {
   return (
     <div className="space-y-5">
@@ -36,7 +50,7 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
           case "paragraph":
             return (
               <p key={i} className="text-gray-700 leading-relaxed text-sm">
-                {block.text}
+                {renderInlineText(block.text)}
               </p>
             );
           case "list":
@@ -50,7 +64,7 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
                     <span className="text-orange-400 font-black mt-0.5 flex-shrink-0">
                       ✓
                     </span>
-                    {item}
+                    {renderInlineText(item)}
                   </li>
                 ))}
               </ul>
