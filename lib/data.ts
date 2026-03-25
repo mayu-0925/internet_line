@@ -148,7 +148,7 @@ export const rankingItems: RankingItem[] = [
     ratingCount: 980,
     affiliateUrl: "#",
     ctaColor: "bg-blue-500 hover:bg-blue-600",
-    badgeGradient: "bg-gray-400",
+    badgeGradient: "bg-gray-500",
   },
   {
     rank: 3,
