@@ -21,7 +21,9 @@ export type ContentBlock =
   | { type: "paragraph"; text: string }
   | { type: "list"; items: string[] }
   | { type: "callout"; emoji: string; text: string }
-  | { type: "ranking_cta"; rankIndex: number }; // rankingItems[rankIndex] を表示
+  | { type: "ranking_cta"; rankIndex: number } // rankingItems[rankIndex] を表示
+  | { type: "table"; headers: string[]; rows: string[][] } // 比較表
+  | { type: "bar_chart"; title: string; items: { label: string; value: number; unit: string; color: string }[] }; // 棒グラフ
 
 export type Article = {
   slug: string;

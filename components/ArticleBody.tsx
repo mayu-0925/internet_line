@@ -109,6 +109,67 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
               </div>
             );
           }
+          case "table":
+            return (
+              <div key={i} className="overflow-x-auto rounded-2xl shadow-sm">
+                <table className="w-full text-sm bg-white">
+                  <thead>
+                    <tr className="bg-orange-400 text-white">
+                      {block.headers.map((h, j) => (
+                        <th key={j} className="py-3 px-4 text-left font-bold whitespace-nowrap">
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {block.rows.map((row, j) => (
+                      <tr key={j} className={j % 2 === 0 ? "bg-white" : "bg-orange-50"}>
+                        {row.map((cell, k) => (
+                          <td key={k} className={`py-3 px-4 border-b border-gray-100 ${k === 0 ? "font-bold text-gray-700" : "text-gray-600"}`}>
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+
+          case "bar_chart":
+            return (
+              <div key={i} className="bg-white rounded-2xl border border-gray-200 p-5">
+                {block.title && (
+                  <p className="text-sm font-bold text-gray-600 mb-4">{block.title}</p>
+                )}
+                <div className="space-y-3">
+                  {block.items.map((item, j) => {
+                    const maxValue = Math.max(...block.items.map((i) => i.value));
+                    const pct = Math.round((item.value / maxValue) * 100);
+                    return (
+                      <div key={j}>
+                        <div className="flex justify-between text-xs text-gray-600 mb-1">
+                          <span className="font-bold">{item.label}</span>
+                          <span className="font-black text-gray-800">
+                            {item.value.toLocaleString()}{item.unit}
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-100 rounded-full h-5">
+                          <div
+                            className={`h-5 rounded-full flex items-center justify-end pr-2 transition-all ${item.color}`}
+                            style={{ width: `${pct}%` }}
+                          >
+                            <span className="text-white text-xs font-black">{pct}%</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+
           default:
             return null;
         }
