@@ -1,0 +1,28 @@
+{
+  "slug": "nuro-vs-au",
+  "title": "NURO光とauひかり どっちがいい？2026年最新版",
+  "excerpt": "料金・速度・サポートの3項目で徹底比較！",
+  "category": "比較",
+  "categoryColor": "orange",
+  "emoji": "🔍",
+  "publishedAt": "2026-03-15",
+  "content": [
+    { "type": "callout", "emoji": "📌", "text": "この記事は2026年3月時点の情報をもとに作成しています。最新のキャンペーン情報は各公式サイトをご確認ください。" },
+    { "type": "heading2", "text": "NURO光とauひかり、結局どっちがいいの？" },
+    { "type": "paragraph", "text": "光回線えらびで迷う組み合わせといえば「NURO光 vs auひかり」。どちらも人気が高く、甲乙つけがたいと感じる方も多いはず。この記事では料金・速度・サポートの3つの視点で徹底的に比較します。" },
+    { "type": "heading2", "text": "料金比較" },
+    { "type": "paragraph", "text": "月額料金だけで見るとauひかりがやや安め。ただしNURO光は工事費が無料になるキャンペーンを常時実施しており、初期費用を抑えられます。" },
+    { "type": "list", "items": ["NURO光：月額5,200円〜（工事費無料キャンペーン中）", "auひかり：月額4,180円〜（auユーザーはさらに割引）", "2年間トータルで比較すると差額は数千円程度"] },
+    { "type": "ranking_cta", "rankIndex": 0 },
+    { "type": "heading2", "text": "速度比較" },
+    { "type": "paragraph", "text": "速度面では NURO光が圧倒的。独自の2Gbps・10Gbpsプランを持ち、実測値でも他社を大きく上回るデータが出ています。auひかりも十分高速ですが、混雑時間帯に速度が落ちる報告が一部あります。" },
+    { "type": "list", "items": ["NURO光 実測平均：897Mbps（下り）", "auひかり 実測平均：743Mbps（下り）", "動画・ゲームなど速度重視ならNURO光が有利"] },
+    { "type": "heading2", "text": "こんな人にはNURO光がおすすめ" },
+    { "type": "list", "items": ["とにかく速度を重視したい", "ゲームや4K動画を楽しむ", "ソニー系のサービスをよく使う"] },
+    { "type": "ranking_cta", "rankIndex": 0 },
+    { "type": "heading2", "text": "こんな人にはauひかりがおすすめ" },
+    { "type": "list", "items": ["auまたはUQモバイルユーザー", "月額料金をできるだけ抑えたい", "スマホとのセット割を最大限活用したい"] },
+    { "type": "ranking_cta", "rankIndex": 1 },
+    { "type": "callout", "emoji": "✅", "text": "迷ったらNURO光！速度・キャンペーン両面でトップクラス。auユーザーならauひかりも要チェックです。" }
+  ]
+}

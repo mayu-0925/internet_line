@@ -7,13 +7,8 @@ import StickyBottomCTA from "@/components/StickyBottomCTA";
 import ArticleBody from "@/components/ArticleBody";
 import ArticleSidebar from "@/components/ArticleSidebar";
 import Link from "next/link";
-
-import {
-  siteAlert,
-  latestArticles,
-  rankingItems,
-  articleContents,
-} from "@/lib/data";
+import { siteAlert, rankingItems } from "@/lib/data";
+import { getAllArticles, getArticleBySlug, getAllSlugs } from "@/lib/articles";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -21,13 +16,13 @@ type Props = {
 
 // 静的パス生成（ビルド時に全記事ページを生成）
 export function generateStaticParams() {
-  return latestArticles.map((a) => ({ slug: a.slug }));
+  return getAllSlugs().map((slug) => ({ slug }));
 }
 
 // メタデータ生成
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = latestArticles.find((a) => a.slug === slug);
+  const article = getArticleBySlug(slug);
   if (!article) return {};
   return {
     title: article.title,
@@ -49,11 +44,12 @@ const cardGradient = {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const article = latestArticles.find((a) => a.slug === slug);
+  const article = getArticleBySlug(slug);
   if (!article) notFound();
 
-  const content = articleContents[slug] ?? null;
-  const relatedArticles = latestArticles.filter((a) => a.slug !== slug).slice(0, 3);
+  const content = article.content ?? null;
+  const allArticles = getAllArticles();
+  const relatedArticles = allArticles.filter((a) => a.slug !== slug).slice(0, 3);
   const featuredItem = rankingItems[0];
 
   return (

@@ -12,11 +12,12 @@ import {
   heroStats,
   howToSteps,
   rankingItems,
-  latestArticles,
 } from "@/lib/data";
+import { getLatestArticles } from "@/lib/articles";
 
 export default function Home() {
   const featuredItem = rankingItems[0];
+  const articles = getLatestArticles(3);
 
   return (
     <>
@@ -26,7 +27,7 @@ export default function Home() {
         <HeroSection stats={heroStats} featuredItem={featuredItem} />
         <HowToChoose steps={howToSteps} />
         <RankingSection items={rankingItems} />
-        <LatestArticles articles={latestArticles} />
+        <LatestArticles articles={articles} />
       </main>
       <Footer />
       <StickyBottomCTA featuredItem={featuredItem} />

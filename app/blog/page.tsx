@@ -3,7 +3,8 @@ import Header from "@/components/Header";
 import AlertBar from "@/components/AlertBar";
 import Footer from "@/components/Footer";
 import ArticleCard from "@/components/ArticleCard";
-import { siteAlert, latestArticles } from "@/lib/data";
+import { siteAlert } from "@/lib/data";
+import { getAllArticles } from "@/lib/articles";
 
 export const metadata: Metadata = {
   title: "記事一覧",
@@ -11,9 +12,10 @@ export const metadata: Metadata = {
     "光回線の比較・ランキング・お得情報・初心者向け解説など、インターネット回線に関する記事をまとめています。",
 };
 
-const allCategories = ["すべて", ...Array.from(new Set(latestArticles.map((a) => a.category)))];
-
 export default function BlogPage() {
+  const articles = getAllArticles();
+  const allCategories = ["すべて", ...Array.from(new Set(articles.map((a) => a.category)))];
+
   return (
     <>
       <Header />
@@ -51,9 +53,9 @@ export default function BlogPage() {
             </div>
 
             {/* Article grid */}
-            {latestArticles.length > 0 ? (
+            {articles.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-                {latestArticles.map((article) => (
+                {articles.map((article) => (
                   <ArticleCard key={article.slug} article={article} />
                 ))}
               </div>
@@ -65,7 +67,7 @@ export default function BlogPage() {
             )}
 
             <p className="text-center text-xs text-gray-400 mt-10">
-              全 {latestArticles.length} 件
+              全 {articles.length} 件
             </p>
           </div>
         </section>
