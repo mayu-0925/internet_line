@@ -64,7 +64,7 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
                     <span className="text-orange-400 font-black mt-0.5 flex-shrink-0">
                       ✓
                     </span>
-                    {renderInlineText(item)}
+                    <span>{renderInlineText(item)}</span>
                   </li>
                 ))}
               </ul>
@@ -181,6 +181,18 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
                     );
                   })}
                 </div>
+              </div>
+            );
+
+          case "definition_list":
+            return (
+              <div key={i} className="space-y-2">
+                {block.items.map((item, j) => (
+                  <div key={j} className="flex gap-3 bg-white border border-gray-100 rounded-xl px-4 py-3 shadow-sm">
+                    <span className="flex-shrink-0 font-bold text-orange-500 text-sm min-w-0 w-36 leading-relaxed">{item.term}</span>
+                    <span className="text-gray-700 text-sm leading-relaxed">{renderInlineText(item.description)}</span>
+                  </div>
+                ))}
               </div>
             );
 
