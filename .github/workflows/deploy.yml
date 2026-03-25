@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main  # mainブランチにpushされたら自動デプロイ
+  workflow_run:
+    workflows: ["記事自動生成"]  # 記事自動生成が完了したら起動
+    types:
+      - completed
 
 jobs:
   build-and-deploy:
