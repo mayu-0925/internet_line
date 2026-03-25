@@ -184,6 +184,23 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
               </div>
             );
 
+          case "steps":
+            return (
+              <div key={i} className="space-y-3">
+                {block.items.map((step, j) => (
+                  <div key={j} className="flex gap-4 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
+                    <div className="flex-shrink-0 w-8 h-8 bg-orange-400 text-white rounded-full flex items-center justify-center font-black text-sm">
+                      {j + 1}
+                    </div>
+                    <div>
+                      <div className="font-bold text-gray-800 text-sm mb-1">{step.title}</div>
+                      <div className="text-gray-600 text-sm leading-relaxed">{renderInlineText(step.description)}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+
           default:
             return null;
         }
