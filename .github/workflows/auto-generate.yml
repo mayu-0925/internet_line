@@ -54,19 +54,34 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: npx tsx scripts/generate-article.ts ${{ steps.topic.outputs.index }}
 
-      # 6. 変更があればコミット＆プッシュ
+      # 6. 変更があればコミット＆プッシュ（最大3回リトライ）
       - name: Commit and push
         run: |
-          set -e
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin main
-          git rebase origin/main
-          git add content/articles/
-          if git diff --staged --quiet; then
+
+          # 生成した記事ファイルを一時退避
+          GENERATED=$(git status --short content/articles/ | awk '{print $2}')
+          if [ -z "$GENERATED" ]; then
             echo "新しい記事はありません"
             exit 0
           fi
-          ARTICLE_COUNT=$(ls content/articles/*.json | wc -l)
-          git commit -m "feat: 記事を自動生成（計${ARTICLE_COUNT}件）"
-          git push origin main
+
+          for i in 1 2 3; do
+            echo "--- push試行 $i/3 ---"
+            git fetch origin main
+            git rebase origin/main
+            git add content/articles/
+            if git diff --staged --quiet; then
+              echo "新しい記事はありません"
+              exit 0
+            fi
+            ARTICLE_COUNT=$(ls content/articles/*.json | wc -l)
+            git commit -m "feat: 記事を自動生成（計${ARTICLE_COUNT}件）"
+            git push origin main && exit 0
+            echo "push失敗。10秒後にリトライします..."
+            git reset HEAD~1
+            sleep 10
+          done
+          echo "3回リトライしましたが失敗しました"
+          exit 1
