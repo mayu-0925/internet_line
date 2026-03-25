@@ -59,12 +59,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
           git add content/articles/
           if git diff --staged --quiet; then
             echo "新しい記事はありません"
           else
             ARTICLE_COUNT=$(ls content/articles/*.json | wc -l)
             git commit -m "feat: 記事を自動生成（計${ARTICLE_COUNT}件）"
+            git pull --rebase origin main
             git push
           fi
