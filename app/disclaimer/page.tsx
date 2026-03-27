@@ -53,7 +53,7 @@ export default function DisclaimerPage() {
             </div>
 
             <div className="border-t border-gray-100 pt-6 text-xs text-gray-400">
-              <p>運営者：ネットチョイス編集部</p>
+              <p>運営者：ネットえらびナビ編集部</p>
               <p className="mt-1">制定日：2026年3月27日</p>
             </div>
           </div>

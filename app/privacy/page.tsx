@@ -25,7 +25,7 @@ export default function PrivacyPage() {
         <section className="py-12 px-4 bg-gray-50">
           <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm p-8 space-y-8 text-sm text-gray-700 leading-relaxed">
 
-            <p>ネットチョイス編集部（以下、当編集部）が運営する「ネットえらびナビ」（以下、当サイト）は、ユーザーの個人情報の取り扱いについて、以下のとおりプライバシーポリシーを定めます。</p>
+            <p>ネットえらびナビ編集部（以下、当編集部）が運営する「ネットえらびナビ」（以下、当サイト）は、ユーザーの個人情報の取り扱いについて、以下のとおりプライバシーポリシーを定めます。</p>
 
             <div>
               <h2 className="text-base font-black text-gray-800 border-l-4 border-orange-400 pl-3 mb-3">収集する情報</h2>
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
             </div>
 
             <div className="border-t border-gray-100 pt-6 text-xs text-gray-400">
-              <p>運営者：ネットチョイス編集部</p>
+              <p>運営者：ネットえらびナビ編集部</p>
               <p className="mt-1">制定日：2026年3月27日</p>
             </div>
           </div>
