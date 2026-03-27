@@ -142,7 +142,7 @@ export const rankingItems: RankingItem[] = [
       { text: "📱 au割引あり", variant: "warm" },
     ],
     reward: { label: "最大還元", value: "30,000円" },
-    affiliateUrl: "#",
+    affiliateUrl: "https://px.a8.net/svt/ejp?a8mat=4AZQGO+12PAYI+50+64C3K1",
     ctaColor: "bg-blue-500 hover:bg-blue-600",
     badgeGradient: "bg-gray-500",
   },
