@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import AlertBar from "@/components/AlertBar";
 import Footer from "@/components/Footer";
-import ArticleCard from "@/components/ArticleCard";
 import { siteAlert } from "@/lib/data";
 import { getAllArticles } from "@/lib/articles";
+import BlogClient from "./BlogClient";
 
 export const metadata: Metadata = {
   title: "記事一覧",
@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const articles = getAllArticles();
-  const allCategories = ["すべて", ...Array.from(new Set(articles.map((a) => a.category)))];
 
   return (
     <>
@@ -36,39 +35,7 @@ export default function BlogPage() {
 
         <section className="py-10 px-4 bg-gray-50">
           <div className="max-w-5xl mx-auto">
-            {/* Category filter */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {allCategories.map((cat) => (
-                <span
-                  key={cat}
-                  className={`px-4 py-2 rounded-full text-sm font-bold cursor-pointer transition-colors ${
-                    cat === "すべて"
-                      ? "bg-gray-800 text-white"
-                      : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-100"
-                  }`}
-                >
-                  {cat}
-                </span>
-              ))}
-            </div>
-
-            {/* Article grid */}
-            {articles.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-                {articles.map((article) => (
-                  <ArticleCard key={article.slug} article={article} />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-20 text-gray-400">
-                <span className="text-5xl block mb-3">📭</span>
-                <p className="font-bold">記事はまだありません</p>
-              </div>
-            )}
-
-            <p className="text-center text-xs text-gray-400 mt-10">
-              全 {articles.length} 件
-            </p>
+            <BlogClient articles={articles} />
           </div>
         </section>
       </main>
