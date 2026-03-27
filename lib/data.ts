@@ -63,7 +63,7 @@ export const articleContents: Record<string, ContentBlock[]> = {
 // サイト全体のアラートバー
 // -------------------------------------------------------
 export const siteAlert: SiteAlert = {
-  message: "🎉 3月限定！今なら最大50,000円キャッシュバック中！",
+  message: "🎉 今なら最大50,000円キャッシュバックキャンペーン実施中！",
   linkText: "詳細を見る",
   linkHref: "#",
 };
@@ -72,9 +72,9 @@ export const siteAlert: SiteAlert = {
 // Heroセクション 統計情報
 // -------------------------------------------------------
 export const heroStats: HeroStat[] = [
-  { value: "47", label: "比較回線", color: "text-blue-500" },
+  { value: "3", label: "比較回線", color: "text-blue-500" },
   { value: "毎月", label: "情報更新", color: "text-green-500" },
-  { value: "15万", label: "月間読者", color: "text-orange-500" },
+  { value: "無料", label: "診断サービス", color: "text-orange-500" },
 ];
 
 // -------------------------------------------------------
@@ -125,8 +125,6 @@ export const rankingItems: RankingItem[] = [
       { text: "🎁 工事費無料", variant: "warm" },
     ],
     reward: { label: "キャッシュバック", value: "50,000円" },
-    rating: 4.8,
-    ratingCount: 1200,
     affiliateUrl: "#",
     ctaColor: "bg-orange-400 hover:bg-orange-500",
     badgeGradient: "bg-yellow-400",
@@ -144,8 +142,6 @@ export const rankingItems: RankingItem[] = [
       { text: "📱 au割引あり", variant: "warm" },
     ],
     reward: { label: "最大還元", value: "30,000円" },
-    rating: 4.5,
-    ratingCount: 980,
     affiliateUrl: "#",
     ctaColor: "bg-blue-500 hover:bg-blue-600",
     badgeGradient: "bg-gray-500",
@@ -164,8 +160,6 @@ export const rankingItems: RankingItem[] = [
       { text: "🔴 dポイント付与", variant: "warm" },
     ],
     reward: { label: "dポイント", value: "20,000pt" },
-    rating: 4.3,
-    ratingCount: 870,
     affiliateUrl: "#",
     ctaColor: "bg-red-500 hover:bg-red-600",
     badgeGradient: "bg-amber-700",

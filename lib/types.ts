@@ -7,8 +7,6 @@ export type RankingItem = {
   price: string;
   tags: { text: string; variant: "cool" | "warm" | "green" }[];
   reward: { label: string; value: string };
-  rating: number;
-  ratingCount: number;
   affiliateUrl: string;
   ctaColor: string; // Tailwind bg class e.g. "bg-orange-400 hover:bg-orange-500"
   badgeGradient: string; // Tailwind gradient class

@@ -84,12 +84,6 @@ export default function HeroSection({ stats, featuredItem }: Props) {
                   <span className="text-lg font-black text-gray-800">
                     {featuredItem.name}
                   </span>
-                  <div className="flex items-center gap-1 mt-1">
-                    <StarRating rating={featuredItem.rating} />
-                    <span className="text-xs text-gray-400">
-                      {featuredItem.rating}
-                    </span>
-                  </div>
                 </div>
                 <div className="text-right">
                   <div className="text-xs text-gray-400">月額</div>
@@ -130,17 +124,3 @@ export default function HeroSection({ stats, featuredItem }: Props) {
   );
 }
 
-function StarRating({ rating }: { rating: number }) {
-  const full = Math.floor(rating);
-  const empty = 5 - full;
-  return (
-    <span className="flex">
-      {"★".repeat(full).split("").map((s, i) => (
-        <span key={i} className="text-yellow-400 text-sm">{s}</span>
-      ))}
-      {"★".repeat(empty).split("").map((s, i) => (
-        <span key={i} className="text-gray-300 text-sm">{s}</span>
-      ))}
-    </span>
-  );
-}

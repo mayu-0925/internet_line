@@ -12,10 +12,6 @@ export const metadata: Metadata = {
     "光回線の料金・速度・エリア・キャンペーンを一覧で比較。自分に合った回線をかんたんに見つけられます。",
 };
 
-const compareRows = [
-  { label: "月額料金", key: "price" as const },
-  { label: "最大速度", key: "speed" as const },
-];
 
 export default function ComparePage() {
   const featuredItem = rankingItems[0];
@@ -109,21 +105,6 @@ export default function ComparePage() {
                         <div className="text-red-500 font-black">
                           {item.reward.value}
                         </div>
-                      </td>
-                    ))}
-                  </tr>
-
-                  {/* 評価 */}
-                  <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-4 px-5 font-bold text-gray-600 bg-gray-50">
-                      ⭐ 評価
-                    </td>
-                    {rankingItems.map((item) => (
-                      <td
-                        key={item.rank}
-                        className="py-4 px-5 text-center font-black text-yellow-500"
-                      >
-                        {item.rating} / 5.0
                       </td>
                     ))}
                   </tr>

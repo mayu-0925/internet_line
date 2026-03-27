@@ -90,33 +90,9 @@ export default function RankingCard({ item }: Props) {
           >
             公式サイトを見る →
           </Link>
-          <div className="flex items-center gap-1">
-            <StarRating rating={item.rating} />
-            <span className="text-xs text-gray-400">
-              {item.rating}（{item.ratingCount.toLocaleString()}件）
-            </span>
-          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function StarRating({ rating }: { rating: number }) {
-  const full = Math.floor(rating);
-  const empty = 5 - full;
-  return (
-    <span className="flex">
-      {Array.from({ length: full }).map((_, i) => (
-        <span key={`f${i}`} className="text-yellow-400">
-          ★
-        </span>
-      ))}
-      {Array.from({ length: empty }).map((_, i) => (
-        <span key={`e${i}`} className="text-gray-300">
-          ★
-        </span>
-      ))}
-    </span>
-  );
-}
