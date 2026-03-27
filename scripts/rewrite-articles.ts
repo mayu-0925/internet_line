@@ -75,6 +75,10 @@ category: ${article.category}
 - 第1位：NURO光（最優先で推奨・rankIndex: 0）
 - 第2位：auひかり（rankIndex: 1）
 - 第3位：ドコモ光（rankIndex: 2）
+- 第4位：J:COM光（rankIndex: 3）
+- 第5位：ソフトバンク光（rankIndex: 4）
+- 第6位：Biglobe光（rankIndex: 5）
+- 第7位：フレッツ光（rankIndex: 6）
 
 【記事構成の必須要件】
 1. 冒頭に「この記事でわかること」をcalloutブロックで提示

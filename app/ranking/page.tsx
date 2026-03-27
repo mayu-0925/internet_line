@@ -10,7 +10,7 @@ import { currentYearMonth } from "@/lib/date";
 export const metadata: Metadata = {
   title: "光回線 おすすめランキング",
   description:
-    "2026年最新の光回線おすすめランキング。料金・速度・キャンペーンを総合評価してTOP3を厳選しました。",
+    "2026年最新の光回線おすすめランキング7選。NURO光・auひかり・ドコモ光・J:COM光・ソフトバンク光・Biglobe光・フレッツ光を料金・速度・キャンペーンで徹底比較。",
 };
 
 const categories = [
@@ -37,7 +37,7 @@ export default function RankingPage() {
               🏆 光回線 おすすめランキング
             </h1>
             <p className="text-sm opacity-90">
-              料金・速度・キャンペーンを総合評価して厳選しました
+              7回線を料金・速度・キャンペーンで徹底比較しました
             </p>
           </div>
         </section>

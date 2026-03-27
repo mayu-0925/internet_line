@@ -11,6 +11,10 @@ const rankBadgeLabel: Record<number, string> = {
   1: "🥇 第1位",
   2: "🥈 第2位",
   3: "🥉 第3位",
+  4: "4位",
+  5: "5位",
+  6: "6位",
+  7: "7位",
 };
 
 type Props = {

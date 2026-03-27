@@ -72,7 +72,7 @@ export const siteAlert: SiteAlert = {
 // Heroセクション 統計情報
 // -------------------------------------------------------
 export const heroStats: HeroStat[] = [
-  { value: "3", label: "比較回線", color: "text-blue-500" },
+  { value: "7", label: "比較回線", color: "text-blue-500" },
   { value: "毎月", label: "情報更新", color: "text-green-500" },
   { value: "無料", label: "診断サービス", color: "text-orange-500" },
 ];
@@ -163,6 +163,74 @@ export const rankingItems: RankingItem[] = [
     affiliateUrl: "https://px.a8.net/svt/ejp?a8mat=35HG13+B8UV82+50+556VPT",
     ctaColor: "bg-red-500 hover:bg-red-600",
     badgeGradient: "bg-amber-700",
+  },
+  {
+    rank: 4,
+    name: "J:COM光",
+    label: "テレビもまとめて",
+    description: "J:COM TVとのセット契約でさらにお得。ケーブルテレビ利用者におすすめ。",
+    speed: "最大1Gbps",
+    price: "月¥4,180〜",
+    tags: [
+      { text: "⚡ 最大1Gbps", variant: "cool" },
+      { text: "💰 月¥4,180〜", variant: "green" },
+      { text: "📺 TV同時契約割引", variant: "warm" },
+    ],
+    reward: { label: "工事費", value: "無料" },
+    affiliateUrl: "#",
+    ctaColor: "bg-purple-500 hover:bg-purple-600",
+    badgeGradient: "bg-purple-500",
+  },
+  {
+    rank: 5,
+    name: "ソフトバンク光",
+    label: "SBユーザーに最適",
+    description: "ソフトバンク・ワイモバイルユーザーはセット割で毎月最大1,100円割引。",
+    speed: "最大1Gbps",
+    price: "月¥5,720〜",
+    tags: [
+      { text: "⚡ 最大1Gbps", variant: "cool" },
+      { text: "💰 月¥5,720〜", variant: "green" },
+      { text: "📱 SB/Y!mobile割引", variant: "warm" },
+    ],
+    reward: { label: "キャッシュバック", value: "最大40,000円" },
+    affiliateUrl: "#",
+    ctaColor: "bg-emerald-500 hover:bg-emerald-600",
+    badgeGradient: "bg-emerald-500",
+  },
+  {
+    rank: 6,
+    name: "Biglobe光",
+    label: "コスパ重視に",
+    description: "月額料金が抑えめで初期費用も安い。シンプルに安く使いたい方向け。",
+    speed: "最大1Gbps",
+    price: "月¥3,610〜",
+    tags: [
+      { text: "⚡ 最大1Gbps", variant: "cool" },
+      { text: "💰 月¥3,610〜", variant: "green" },
+      { text: "🔵 低コスト", variant: "warm" },
+    ],
+    reward: { label: "キャッシュバック", value: "最大20,000円" },
+    affiliateUrl: "#",
+    ctaColor: "bg-cyan-500 hover:bg-cyan-600",
+    badgeGradient: "bg-cyan-600",
+  },
+  {
+    rank: 7,
+    name: "フレッツ光",
+    label: "NTT直営で安心",
+    description: "NTT東日本・西日本が提供する回線。全国対応でプロバイダを自由に選べる。",
+    speed: "最大10Gbps",
+    price: "月¥3,410〜",
+    tags: [
+      { text: "⚡ 最大10Gbps", variant: "cool" },
+      { text: "💰 月¥3,410〜", variant: "green" },
+      { text: "🏢 NTT直営", variant: "warm" },
+    ],
+    reward: { label: "工事費", value: "無料キャンペーン有" },
+    affiliateUrl: "#",
+    ctaColor: "bg-indigo-500 hover:bg-indigo-600",
+    badgeGradient: "bg-indigo-500",
   },
 ];
 

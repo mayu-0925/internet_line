@@ -50,11 +50,7 @@ export default function ComparePage() {
                         className="py-4 px-5 text-center font-black"
                       >
                         <div className="text-xs mb-1 opacity-80">
-                          {item.rank === 1
-                            ? "🥇"
-                            : item.rank === 2
-                              ? "🥈"
-                              : "🥉"}
+                          {item.rank === 1 ? "🥇" : item.rank === 2 ? "🥈" : item.rank === 3 ? "🥉" : `第${item.rank}位`}
                         </div>
                         {item.name}
                       </th>

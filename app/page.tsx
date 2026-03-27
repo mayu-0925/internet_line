@@ -26,7 +26,7 @@ export default function Home() {
       <main>
         <HeroSection stats={heroStats} featuredItem={featuredItem} />
         <HowToChoose steps={howToSteps} />
-        <RankingSection items={rankingItems} />
+        <RankingSection items={rankingItems.slice(0, 3)} />
         <LatestArticles articles={articles} />
       </main>
       <Footer />
