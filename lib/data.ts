@@ -160,7 +160,7 @@ export const rankingItems: RankingItem[] = [
       { text: "🔴 dポイント付与", variant: "warm" },
     ],
     reward: { label: "dポイント", value: "20,000pt" },
-    affiliateUrl: "#",
+    affiliateUrl: "https://px.a8.net/svt/ejp?a8mat=35HG13+B8UV82+50+556VPT",
     ctaColor: "bg-red-500 hover:bg-red-600",
     badgeGradient: "bg-amber-700",
   },
