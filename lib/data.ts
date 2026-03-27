@@ -125,7 +125,7 @@ export const rankingItems: RankingItem[] = [
       { text: "🎁 工事費無料", variant: "warm" },
     ],
     reward: { label: "キャッシュバック", value: "50,000円" },
-    affiliateUrl: "#",
+    affiliateUrl: "https://px.a8.net/svt/ejp?a8mat=2BJ8HV+6NXPKI+2VMU+64C3M",
     ctaColor: "bg-orange-400 hover:bg-orange-500",
     badgeGradient: "bg-yellow-400",
   },
