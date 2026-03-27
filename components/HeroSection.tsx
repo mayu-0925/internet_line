@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { HeroStat, RankingItem } from "@/lib/types";
+import { currentYearMonth } from "@/lib/date";
 
 type Props = {
   stats: HeroStat[];
@@ -34,7 +35,7 @@ export default function HeroSection({ stats, featuredItem }: Props) {
               <span className="inline-block w-2 h-2 rounded-full bg-yellow-400"></span>
               <span className="inline-block w-2 h-2 rounded-full bg-green-400"></span>
               <span className="text-sm text-gray-500 ml-1">
-                2026年3月 最新版
+                {currentYearMonth()} 最新版
               </span>
             </div>
 

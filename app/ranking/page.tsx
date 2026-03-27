@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import StickyBottomCTA from "@/components/StickyBottomCTA";
 import RankingCard from "@/components/RankingCard";
 import { siteAlert, rankingItems } from "@/lib/data";
+import { currentYearMonth } from "@/lib/date";
 
 export const metadata: Metadata = {
   title: "光回線 おすすめランキング",
@@ -30,7 +31,7 @@ export default function RankingPage() {
         <section className="bg-gradient-to-br from-orange-400 to-pink-400 text-white py-10 px-4 text-center">
           <div className="max-w-5xl mx-auto">
             <p className="text-sm font-bold bg-white/20 inline-block px-3 py-1 rounded-full mb-3">
-              📅 2026年3月 最新版
+              📅 {currentYearMonth()} 最新版
             </p>
             <h1 className="text-3xl font-black mb-2">
               🏆 光回線 おすすめランキング
@@ -65,7 +66,7 @@ export default function RankingPage() {
             {/* Update info */}
             <div className="flex items-center justify-between mb-6">
               <p className="text-xs text-gray-400">
-                🔄 最終更新：2026年3月16日
+                🔄 最終更新：{currentYearMonth()}
               </p>
               <p className="text-xs text-gray-400">
                 編集部が実際に調査した情報をもとに作成

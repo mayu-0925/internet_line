@@ -1,6 +1,7 @@
 import Link from "next/link";
 import RankingCard from "./RankingCard";
 import type { RankingItem } from "@/lib/types";
+import { currentYearMonth } from "@/lib/date";
 
 type Props = {
   items: RankingItem[];
@@ -17,7 +18,7 @@ export default function RankingSection({ items }: Props) {
             光回線 おすすめランキング
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            2026年3月 編集部が選んだTOP3
+            {currentYearMonth()} 編集部が選んだTOP3
           </p>
         </div>
 

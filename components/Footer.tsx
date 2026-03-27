@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { currentYear } from "@/lib/date";
 
 const footerLinks = [
   { href: "/privacy", label: "プライバシーポリシー" },
@@ -28,7 +29,7 @@ export default function Footer() {
           ))}
         </div>
         <p className="text-xs text-gray-600 mt-4">
-          © 2026 ネットえらびナビ All rights reserved.
+          © {currentYear()} ネットえらびナビ All rights reserved.
         </p>
         <p className="text-xs text-gray-600 mt-2">
           ※ 当サイトはアフィリエイト広告を利用しています。
