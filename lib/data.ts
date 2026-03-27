@@ -45,9 +45,9 @@ export const articleContents: Record<string, ContentBlock[]> = {
   "campaign-march-2026": [
     { type: "callout", emoji: "⏰", text: "このキャンペーン情報は2026年3月時点のものです。期間限定のため、お早めにご確認ください。" },
     { type: "heading2", text: "3月の光回線キャンペーンまとめ" },
-    { type: "paragraph", text: "3月は引越しシーズンのため、各社が例年よりお得なキャンペーンを実施しています。今月申し込めば最大50,000円以上お得になることも。見逃さないようにチェックしましょう。" },
-    { type: "heading2", text: "第1位：NURO光 キャッシュバック最大50,000円" },
-    { type: "list", items: ["キャッシュバック：最大50,000円", "工事費：無料（通常44,000円）", "キャンペーン期間：2026年3月31日まで", "対象エリア：関東・関西・東海・九州など"] },
+    { type: "paragraph", text: "引越しシーズンには各社がお得なキャンペーンを実施しています。NURO光なら戸建て最大90,000円・マンション最大60,000円のキャッシュバックが受け取れます。" },
+    { type: "heading2", text: "第1位：NURO光 キャッシュバック戸建て最大90,000円" },
+    { type: "list", items: ["キャッシュバック：戸建て最大90,000円・マンション最大60,000円", "工事費：無料（通常44,000円）", "対象エリア：関東・関西・東海・九州など"] },
     { type: "ranking_cta", rankIndex: 0 },
     { type: "heading2", text: "第2位：auひかり 最大30,000円還元" },
     { type: "list", items: ["au PAY残高還元：最大30,000円", "auユーザーは毎月最大1,100円割引", "スマホとのセット申し込みでさらにお得", "キャンペーン期間：2026年3月末まで"] },
@@ -63,7 +63,7 @@ export const articleContents: Record<string, ContentBlock[]> = {
 // サイト全体のアラートバー
 // -------------------------------------------------------
 export const siteAlert: SiteAlert = {
-  message: "🎉 今なら最大50,000円キャッシュバックキャンペーン実施中！",
+  message: "🎉 今なら戸建て最大90,000円・マンション最大60,000円キャッシュバック実施中！",
   linkText: "詳細を見る",
   linkHref: "#",
 };
@@ -124,7 +124,7 @@ export const rankingItems: RankingItem[] = [
       { text: "💰 月¥5,200〜", variant: "green" },
       { text: "🎁 工事費無料", variant: "warm" },
     ],
-    reward: { label: "キャッシュバック", value: "50,000円" },
+    reward: { label: "戸建て最大", value: "90,000円" },
     affiliateUrl: "https://px.a8.net/svt/ejp?a8mat=2BJ8HV+6NXPKI+2VMU+64C3M",
     ctaColor: "bg-orange-400 hover:bg-orange-500",
     badgeGradient: "bg-yellow-400",
