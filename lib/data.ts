@@ -65,7 +65,7 @@ export const articleContents: Record<string, ContentBlock[]> = {
 export const siteAlert: SiteAlert = {
   message: "🎉 今なら戸建て最大90,000円・マンション最大60,000円キャッシュバック実施中！",
   linkText: "詳細を見る",
-  linkHref: "#",
+  linkHref: "https://px.a8.net/svt/ejp?a8mat=2BJ8HV+6NXPKI+2VMU+64C3M",
 };
 
 // -------------------------------------------------------
