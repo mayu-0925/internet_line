@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "はじめての光回線 初心者ガイド",
   description:
     "光回線が初めての方向けにわかりやすく解説。選び方・申し込み方法・よくある疑問をまとめました。",
+  alternates: { canonical: "https://www.net-choice.jp/beginners" },
 };
 
 const steps = [
@@ -71,11 +72,28 @@ const faqs = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.a,
+    },
+  })),
+};
+
 export default function BeginnersPage() {
   const featuredItem = rankingItems[0];
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Header />
       <AlertBar alert={siteAlert} />
       <main>

@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "記事一覧",
   description:
     "光回線の比較・ランキング・お得情報・初心者向け解説など、インターネット回線に関する記事をまとめています。",
+  alternates: { canonical: "https://www.net-choice.jp/blog" },
 };
 
 export default function BlogPage() {

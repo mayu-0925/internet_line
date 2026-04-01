@@ -7,6 +7,8 @@ import { siteAlert } from "@/lib/data";
 export const metadata: Metadata = {
   title: "免責事項",
   description: "ネットえらびナビの免責事項についてご説明します。",
+  alternates: { canonical: "https://www.net-choice.jp/disclaimer" },
+  robots: { index: false },
 };
 
 export default function DisclaimerPage() {

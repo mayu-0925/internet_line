@@ -19,14 +19,40 @@ export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
 }
 
+const BASE_URL = "https://www.net-choice.jp";
+
 // メタデータ生成
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) return {};
+  const url = `${BASE_URL}/blog/${slug}`;
   return {
     title: article.title,
     description: article.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title: article.title,
+      description: article.excerpt,
+      publishedTime: article.publishedAt,
+      authors: ["ネットえらびナビ編集部"],
+      images: [
+        {
+          url: "/og-default.png",
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: ["/og-default.png"],
+    },
   };
 }
 
@@ -52,8 +78,65 @@ export default async function BlogPostPage({ params }: Props) {
   const relatedArticles = allArticles.filter((a) => a.slug !== slug).slice(0, 3);
   const featuredItem = rankingItems[0];
 
+  const articleUrl = `${BASE_URL}/blog/${slug}`;
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": articleUrl,
+    url: articleUrl,
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.publishedAt,
+    dateModified: article.publishedAt,
+    author: {
+      "@type": "Organization",
+      name: "ネットえらびナビ編集部",
+      url: BASE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "ネットえらびナビ",
+      url: BASE_URL,
+    },
+    inLanguage: "ja",
+    isPartOf: { "@id": `${BASE_URL}/#website` },
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "トップ",
+        item: BASE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "記事一覧",
+        item: `${BASE_URL}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: article.title,
+        item: articleUrl,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Header />
       <AlertBar alert={siteAlert} />
       <main className="pb-20 md:pb-0">

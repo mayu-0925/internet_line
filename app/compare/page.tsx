@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "光回線 比較表",
   description:
     "光回線の料金・速度・エリア・キャンペーンを一覧で比較。自分に合った回線をかんたんに見つけられます。",
+  alternates: { canonical: "https://www.net-choice.jp/compare" },
 };
 
 

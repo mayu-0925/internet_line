@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "光回線 おすすめランキング",
   description:
     "2026年最新の光回線おすすめランキング7選。NURO光・auひかり・ドコモ光・J:COM光・ソフトバンク光・Biglobe光・フレッツ光を料金・速度・キャンペーンで徹底比較。",
+  alternates: { canonical: "https://www.net-choice.jp/ranking" },
 };
 
 const categories = [

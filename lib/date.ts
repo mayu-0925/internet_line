@@ -1,10 +1,17 @@
-/** ビルド時の現在年を返す */
-export function currentYear(): number {
-  return new Date().getFullYear();
+/** JST（UTC+9）での現在日時を返す */
+function nowJST(): Date {
+  const d = new Date();
+  d.setTime(d.getTime() + 9 * 60 * 60 * 1000);
+  return d;
 }
 
-/** ビルド時の現在年月を「YYYY年M月」形式で返す */
+/** ビルド時の現在年を返す（JST基準） */
+export function currentYear(): number {
+  return nowJST().getUTCFullYear();
+}
+
+/** ビルド時の現在年月を「YYYY年M月」形式で返す（JST基準） */
 export function currentYearMonth(): string {
-  const d = new Date();
-  return `${d.getFullYear()}年${d.getMonth() + 1}月`;
+  const d = nowJST();
+  return `${d.getUTCFullYear()}年${d.getUTCMonth() + 1}月`;
 }

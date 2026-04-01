@@ -210,7 +210,7 @@ export const rankingItems: RankingItem[] = [
       { text: "💰 月¥3,610〜", variant: "green" },
       { text: "🔵 低コスト", variant: "warm" },
     ],
-    reward: { label: "キャッシュバック", value: "最大20,000円" },
+    reward: { label: "キャッシュバック", value: "最大50,000円" },
     affiliateUrl: "https://px.a8.net/svt/ejp?a8mat=4AZR8P+CONLMI+B4+2NBPO2",
     ctaColor: "bg-cyan-500 hover:bg-cyan-600",
     badgeGradient: "bg-cyan-600",

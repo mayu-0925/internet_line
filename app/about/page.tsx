@@ -7,6 +7,8 @@ import { siteAlert } from "@/lib/data";
 export const metadata: Metadata = {
   title: "運営者情報",
   description: "ネットえらびナビの運営者情報をご紹介します。",
+  alternates: { canonical: "https://www.net-choice.jp/about" },
+  robots: { index: false },
 };
 
 const info = [
