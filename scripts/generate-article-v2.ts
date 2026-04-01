@@ -109,7 +109,7 @@ ${existingList}
 
   const response = await client.messages.create({
     model: "claude-opus-4-6",
-    max_tokens: 1024,
+    max_tokens: 2048,
     system: systemPrompt,
     messages: [{ role: "user", content: userPrompt }],
   });
@@ -210,17 +210,37 @@ async function phase2CreateOutline(
 
   const response = await client.messages.create({
     model: "claude-opus-4-6",
-    max_tokens: 2048,
+    max_tokens: 4096,
     system: systemPrompt,
     messages: [{ role: "user", content: userPrompt }],
   });
 
   const text = response.content[0].type === "text" ? response.content[0].text : "";
-  const jsonMatch = text.match(/```(?:json)?\n?([\s\S]*?)\n?```/) ?? [null, text];
-  const outline: ArticleOutline = JSON.parse((jsonMatch[1] ?? text).trim());
+
+  // JSONを抽出（コードブロックあり・なし両対応）
+  let jsonStr = text;
+  const codeBlockMatch = text.match(/```(?:json)?\n?([\s\S]*?)\n?```/);
+  if (codeBlockMatch) {
+    jsonStr = codeBlockMatch[1];
+  }
+
+  // 不完全なJSONを修復（末尾が途中で切れた場合に閉じ括弧を補完）
+  let outline: ArticleOutline;
+  try {
+    outline = JSON.parse(jsonStr.trim());
+  } catch {
+    // 末尾に "}" が足りない場合は補完して再試行
+    const fixed = jsonStr.trim().replace(/,?\s*$/, "") + "\n}}";
+    try {
+      outline = JSON.parse(fixed);
+    } catch {
+      console.error("Phase 2 JSONパース失敗。レスポンス先頭500字:\n", text.substring(0, 500));
+      throw new Error("Phase 2: JSONのパースに失敗しました");
+    }
+  }
 
   console.log(`   タイトル: ${outline.title}`);
-  console.log(`   セクション数: ${outline.sections.length}`);
+  console.log(`   セクション数: ${outline.sections?.length ?? 0}`);
   console.log(`   表: ${outline.tableNeeded} / グラフ: ${outline.chartNeeded}`);
   return outline;
 }
