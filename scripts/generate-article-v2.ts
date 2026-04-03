@@ -322,6 +322,13 @@ ${outline.faqQuestions.map((q) => `- ${q}`).join("\n")}
 - 第6位：Biglobe光（rankIndex: 5）
 - 第7位：フレッツ光（rankIndex: 6）
 
+【出力量の制約】
+- contentブロックの合計は20〜28個に収める（多すぎるとJSONが途切れる）
+- paragraphは1セクションにつき1〜2個まで
+- 1つのparagraphは150文字以内に抑える
+- listのitemsは1つにつき4個まで
+- stepsのitemsは1つにつき4個まで
+
 【出力形式】
 以下のJSON形式のみ。コードブロック（\`\`\`json）で囲むこと。
 
@@ -355,14 +362,40 @@ ${outline.faqQuestions.map((q) => `- ${q}`).join("\n")}
   });
 
   const text = response.content[0].type === "text" ? response.content[0].text : "";
-  const match = text.match(/```json\n([\s\S]*?)\n```/);
-  if (!match) {
-    console.error("JSON抽出失敗。レスポンス:\n", text.substring(0, 500));
-    process.exit(1);
+
+  // コードブロック内のJSONを抽出（閉じタグがなくても中身を取り出す）
+  let jsonStr: string;
+  const closedMatch = text.match(/```json\n([\s\S]*?)\n```/);
+  if (closedMatch) {
+    jsonStr = closedMatch[1];
+  } else {
+    // 閉じタグなし：```json の後ろをすべて取る
+    const openMatch = text.match(/```json\n([\s\S]*)/);
+    if (openMatch) {
+      jsonStr = openMatch[1];
+    } else {
+      jsonStr = text;
+    }
   }
 
-  const article = JSON.parse(match[1]);
-  console.log(`   生成完了: ${article.content?.length ?? 0} ブロック`);
+  // JSONパース（失敗時は末尾を補完して再試行）
+  let article: Record<string, unknown>;
+  try {
+    article = JSON.parse(jsonStr.trim());
+  } catch {
+    // content配列が途中で切れた場合、閉じ括弧を補完
+    const trimmed = jsonStr.trim().replace(/,\s*$/, "");
+    const fixed = trimmed + "\n]}";
+    try {
+      article = JSON.parse(fixed);
+      console.log("⚠️  JSONを補完して修復しました");
+    } catch {
+      console.error("Phase 3 JSONパース失敗。レスポンス先頭500字:\n", text.substring(0, 500));
+      process.exit(1);
+    }
+  }
+
+  console.log(`   生成完了: ${(article.content as unknown[])?.length ?? 0} ブロック`);
   return article;
 }
 
