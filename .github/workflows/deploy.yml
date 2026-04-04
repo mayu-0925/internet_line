@@ -49,3 +49,9 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+
+      # 6. Google にサイトマップを通知してインデックスを促進
+      - name: Ping Google Sitemap
+        run: |
+          curl -s "https://www.google.com/ping?sitemap=https://www.net-choice.jp/sitemap.xml" \
+            -o /dev/null -w "HTTP Status: %{http_code}\n"
