@@ -415,7 +415,7 @@ async function phase4GenerateThumbnail(
     console.log("⏭️  Phase 4: GOOGLE_AI_STUDIO_API_KEY 未設定のためスキップ");
     return null;
   }
-  console.log("🖼️  Phase 4: サムネイル画像生成中...");
+  console.log("🖼️  Phase 4: サムネイル画像生成中（Nano Banana 2）...");
 
   const categoryTheme: Record<string, string> = {
     比較: "comparison chart, blue and orange color scheme",
@@ -429,18 +429,18 @@ async function phase4GenerateThumbnail(
   const prompt = `Professional blog thumbnail for Japanese internet service comparison website. Topic: "${title}". Style: clean, modern, flat design, ${theme}. No text, no Japanese characters. Wide banner format, 16:9 ratio.`;
 
   try {
-    const response = await genai.models.generateImages({
-      model: "imagen-3.0-generate-002",
-      prompt,
+    const response = await genai.models.generateContent({
+      model: "gemini-3.1-flash-image-preview",
+      contents: prompt,
       config: {
-        numberOfImages: 1,
-        aspectRatio: "16:9",
-        outputMimeType: "image/jpeg",
+        responseModalities: ["TEXT", "IMAGE"],
       },
     });
 
-    const imageBytes = response.generatedImages?.[0]?.image?.imageBytes;
-    if (!imageBytes) {
+    // レスポンスから画像データを取得
+    const parts = response.candidates?.[0]?.content?.parts ?? [];
+    const imagePart = parts.find((p: { inlineData?: { data?: string; mimeType?: string } }) => p.inlineData?.data);
+    if (!imagePart?.inlineData?.data) {
       console.log("⚠️  画像データが取得できませんでした");
       return null;
     }
@@ -449,11 +449,12 @@ async function phase4GenerateThumbnail(
     if (!fs.existsSync(THUMBNAILS_DIR)) {
       fs.mkdirSync(THUMBNAILS_DIR, { recursive: true });
     }
-    const imagePath = path.join(THUMBNAILS_DIR, `${slug}.jpg`);
-    fs.writeFileSync(imagePath, Buffer.from(imageBytes as string, "base64"));
+    const ext = imagePart.inlineData.mimeType === "image/png" ? "png" : "jpg";
+    const imagePath = path.join(THUMBNAILS_DIR, `${slug}.${ext}`);
+    fs.writeFileSync(imagePath, Buffer.from(imagePart.inlineData.data, "base64"));
 
-    console.log(`   保存完了: public/thumbnails/${slug}.jpg`);
-    return `/thumbnails/${slug}.jpg`;
+    console.log(`   保存完了: public/thumbnails/${slug}.${ext}`);
+    return `/thumbnails/${slug}.${ext}`;
   } catch (err) {
     console.log(`⚠️  画像生成エラー（スキップ）: ${(err as Error).message}`);
     return null;
