@@ -426,7 +426,7 @@ async function phase4GenerateThumbnail(
   };
   const theme = categoryTheme[category] ?? "internet, fiber optic, modern";
 
-  const prompt = `Professional blog thumbnail for Japanese internet service comparison website. Topic: "${title}". Style: clean, modern, flat design, ${theme}. No text, no Japanese characters. Wide banner format, 16:9 ratio.`;
+  const prompt = `Professional blog thumbnail for Japanese internet service comparison website. Topic: "${title}". Style: clean, modern, flat design, ${theme}. 文字は入れない。No text, no letters, no numbers, no characters of any kind. Wide banner format, 16:9 ratio.`;
 
   try {
     const response = await genai.models.generateContent({

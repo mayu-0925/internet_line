@@ -45,7 +45,7 @@ async function main() {
 
   // 画像生成
   const theme = categoryTheme[article.category] ?? "internet, fiber optic, modern";
-  const prompt = `Professional blog thumbnail for Japanese internet service comparison website. Topic: "${article.title}". Style: clean, modern, flat design, ${theme}. No text, no Japanese characters. Wide banner format, 16:9 ratio.`;
+  const prompt = `Professional blog thumbnail for Japanese internet service comparison website. Topic: "${article.title}". Style: clean, modern, flat design, ${theme}. 文字は入れない。No text, no letters, no numbers, no characters of any kind. Wide banner format, 16:9 ratio.`;
 
   console.log("🖼️  Nano Banana 2 で画像生成中...");
   const response = await genai.models.generateContent({
