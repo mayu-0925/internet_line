@@ -5,7 +5,7 @@ on:
     branches:
       - main  # mainブランチにpushされたら自動デプロイ
   workflow_run:
-    workflows: ["記事自動生成", "記事リライト"]  # 記事生成・リライトが完了したら起動
+    workflows: ["記事自動生成", "記事リライト", "サムネイル生成"]  # 記事生成・リライト・サムネイル生成が完了したら起動
     types:
       - completed
   workflow_dispatch:  # 手動実行も可能
