@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Article } from "@/lib/types";
 
 const categoryStyles = {
@@ -21,11 +22,23 @@ export default function ArticleCard({ article }: Props) {
   return (
     <article className="bg-white rounded-2xl overflow-hidden card-pop border border-gray-100">
       {/* Thumbnail */}
-      <div
-        className={`h-36 bg-gradient-to-br ${cardGradients[article.categoryColor]} flex items-center justify-center`}
-      >
-        <span className="text-5xl">{article.emoji}</span>
-      </div>
+      {article.thumbnail ? (
+        <div className="relative h-36 w-full overflow-hidden">
+          <Image
+            src={article.thumbnail}
+            alt={article.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+        </div>
+      ) : (
+        <div
+          className={`h-36 bg-gradient-to-br ${cardGradients[article.categoryColor]} flex items-center justify-center`}
+        >
+          <span className="text-5xl">{article.emoji}</span>
+        </div>
+      )}
 
       {/* Body */}
       <div className="p-4">

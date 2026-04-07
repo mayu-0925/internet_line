@@ -33,6 +33,7 @@ export type Article = {
   categoryColor: "orange" | "blue" | "green";
   emoji: string;
   publishedAt: string;
+  thumbnail?: string; // サムネイル画像パス（例: /thumbnails/slug.jpg）
   content?: ContentBlock[]; // 本文（未設定の場合は「準備中」表示）
 };
 

@@ -1,19 +1,23 @@
 /**
- * 記事自動生成スクリプト v2 - 3エージェント構成
+ * 記事自動生成スクリプト v2 - 4エージェント構成
  *
  * Phase 1 (Keyword Agent) : 既存記事を把握し、未開拓テーマ・キーワードを選定
  * Phase 2 (Outline Agent) : 選定キーワードをもとに詳細な記事構成を設計
  * Phase 3 (Writer Agent)  : 構成に従い、高品質な記事本文 JSON を生成
+ * Phase 4 (Image Agent)   : Imagen 3 でサムネイル画像を生成・保存
  *
  * 使い方: npx tsx scripts/generate-article-v2.ts
  */
 
 import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenAI } from "@google/genai";
 import fs from "fs";
 import path from "path";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const genai = new GoogleGenAI({ apiKey: process.env.GOOGLE_AI_STUDIO_API_KEY });
 const ARTICLES_DIR = path.join(process.cwd(), "content/articles");
+const THUMBNAILS_DIR = path.join(process.cwd(), "public/thumbnails");
 
 // ----------------------------------------------------------------
 // 既存記事の読み込み
@@ -400,6 +404,63 @@ ${outline.faqQuestions.map((q) => `- ${q}`).join("\n")}
 }
 
 // ----------------------------------------------------------------
+// Phase 4: サムネイル画像生成（Imagen 3）
+// ----------------------------------------------------------------
+async function phase4GenerateThumbnail(
+  title: string,
+  category: string,
+  slug: string
+): Promise<string | null> {
+  if (!process.env.GOOGLE_AI_STUDIO_API_KEY) {
+    console.log("⏭️  Phase 4: GOOGLE_AI_STUDIO_API_KEY 未設定のためスキップ");
+    return null;
+  }
+  console.log("🖼️  Phase 4: サムネイル画像生成中...");
+
+  const categoryTheme: Record<string, string> = {
+    比較: "comparison chart, blue and orange color scheme",
+    初心者: "beginner guide, friendly green color scheme",
+    お得情報: "gift box, campaign, warm orange color scheme",
+    レビュー: "review, star rating, neutral color scheme",
+    速度: "speed, fast internet, electric blue color scheme",
+  };
+  const theme = categoryTheme[category] ?? "internet, fiber optic, modern";
+
+  const prompt = `Professional blog thumbnail for Japanese internet service comparison website. Topic: "${title}". Style: clean, modern, flat design, ${theme}. No text, no Japanese characters. Wide banner format, 16:9 ratio.`;
+
+  try {
+    const response = await genai.models.generateImages({
+      model: "imagen-3.0-generate-002",
+      prompt,
+      config: {
+        numberOfImages: 1,
+        aspectRatio: "16:9",
+        outputMimeType: "image/jpeg",
+      },
+    });
+
+    const imageBytes = response.generatedImages?.[0]?.image?.imageBytes;
+    if (!imageBytes) {
+      console.log("⚠️  画像データが取得できませんでした");
+      return null;
+    }
+
+    // public/thumbnails/ に保存
+    if (!fs.existsSync(THUMBNAILS_DIR)) {
+      fs.mkdirSync(THUMBNAILS_DIR, { recursive: true });
+    }
+    const imagePath = path.join(THUMBNAILS_DIR, `${slug}.jpg`);
+    fs.writeFileSync(imagePath, Buffer.from(imageBytes as string, "base64"));
+
+    console.log(`   保存完了: public/thumbnails/${slug}.jpg`);
+    return `/thumbnails/${slug}.jpg`;
+  } catch (err) {
+    console.log(`⚠️  画像生成エラー（スキップ）: ${(err as Error).message}`);
+    return null;
+  }
+}
+
+// ----------------------------------------------------------------
 // メイン処理
 // ----------------------------------------------------------------
 async function main(): Promise<void> {
@@ -430,6 +491,17 @@ async function main(): Promise<void> {
     article.slug = slug;
     console.log(`⚠️  スラッグが重複したため変更: ${slug}`);
   }
+
+  // Phase 4: サムネイル画像生成
+  const thumbnail = await phase4GenerateThumbnail(
+    article.title as string,
+    article.category as string,
+    slug
+  );
+  if (thumbnail) {
+    article.thumbnail = thumbnail;
+  }
+  console.log();
 
   // 保存
   const outputPath = path.join(ARTICLES_DIR, `${slug}.json`);

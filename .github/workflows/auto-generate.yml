@@ -30,10 +30,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4. 記事を生成（3エージェント構成: キーワード選定→構成設計→執筆）
+      # 4. 記事を生成（4エージェント構成: キーワード選定→構成設計→執筆→サムネイル生成）
       - name: Generate article
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_AI_STUDIO_API_KEY: ${{ secrets.GOOGLE_AI_STUDIO_API_KEY }}
         run: npx tsx scripts/generate-article-v2.ts
 
       # 5. 変更があればコミット＆プッシュ（最大3回リトライ）
