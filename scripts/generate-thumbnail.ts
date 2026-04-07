@@ -26,11 +26,11 @@ const ARTICLES_DIR = path.join(process.cwd(), "content/articles");
 const THUMBNAILS_DIR = path.join(process.cwd(), "public/thumbnails");
 
 const categoryTheme: Record<string, string> = {
-  比較: "comparison chart, blue and orange color scheme",
-  初心者: "beginner guide, friendly green color scheme",
-  お得情報: "gift box, campaign, warm orange color scheme",
-  レビュー: "review, star rating, neutral color scheme",
-  速度: "speed, fast internet, electric blue color scheme",
+  比較: "two people comparing documents side by side, blue and orange accents",
+  初心者: "friendly character learning about internet, green and teal accents",
+  お得情報: "gift boxes and coins floating, warm orange and yellow accents",
+  レビュー: "magnifying glass and checkmarks, neutral gray and blue accents",
+  速度: "rocket and lightning bolts, electric blue and purple accents",
 };
 
 async function main() {
@@ -45,7 +45,7 @@ async function main() {
 
   // 画像生成
   const theme = categoryTheme[article.category] ?? "internet, fiber optic, modern";
-  const prompt = `Professional blog thumbnail for Japanese internet service comparison website. Topic: "${article.title}". Style: clean, modern, flat design, ${theme}. 文字は入れない。No text, no letters, no numbers, no characters of any kind. Wide banner format, 16:9 ratio.`;
+  const prompt = `Flat vector illustration style blog thumbnail. Theme: ${theme}. Topic relates to: "${article.title}". Cute and friendly Japanese illustration style, pastel colors, simple shapes, rounded edges, minimalist background gradient. 文字は入れない。Absolutely no text, no letters, no numbers, no characters, no symbols of any kind anywhere in the image. 16:9 wide banner format.`;
 
   console.log("🖼️  Nano Banana 2 で画像生成中...");
   const response = await genai.models.generateContent({
