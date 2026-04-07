@@ -55,6 +55,7 @@ jobs:
             git fetch origin main
             git rebase origin/main
             git add content/articles/
+            git add public/thumbnails/ 2>/dev/null || true
             if git diff --staged --quiet; then
               echo "新しい記事はありません"
               exit 0
