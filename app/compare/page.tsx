@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import AlertBar from "@/components/AlertBar";
 import Footer from "@/components/Footer";
 import StickyBottomCTA from "@/components/StickyBottomCTA";
+import CompareClient from "./CompareClient";
 import { siteAlert, rankingItems } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -38,110 +39,7 @@ export default function ComparePage() {
         {/* Comparison Table */}
         <section className="py-10 px-4 bg-blue-50">
           <div className="max-w-5xl mx-auto">
-            <div className="overflow-x-auto rounded-3xl shadow-md">
-              <table className="w-full bg-white text-sm">
-                <thead>
-                  <tr className="bg-blue-500 text-white">
-                    <th className="py-4 px-5 text-left font-bold w-32">
-                      比較項目
-                    </th>
-                    {rankingItems.map((item) => (
-                      <th
-                        key={item.rank}
-                        className="py-4 px-5 text-center font-black"
-                      >
-                        <div className="text-xs mb-1 opacity-80">
-                          {item.rank === 1 ? "🥇" : item.rank === 2 ? "🥈" : item.rank === 3 ? "🥉" : `第${item.rank}位`}
-                        </div>
-                        {item.name}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* 料金 */}
-                  <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-4 px-5 font-bold text-gray-600 bg-gray-50">
-                      💰 月額料金
-                    </td>
-                    {rankingItems.map((item) => (
-                      <td
-                        key={item.rank}
-                        className="py-4 px-5 text-center font-black text-blue-600"
-                      >
-                        {item.price}
-                      </td>
-                    ))}
-                  </tr>
-
-                  {/* 速度 */}
-                  <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-4 px-5 font-bold text-gray-600 bg-gray-50">
-                      ⚡ 最大速度
-                    </td>
-                    {rankingItems.map((item) => (
-                      <td
-                        key={item.rank}
-                        className="py-4 px-5 text-center font-bold"
-                      >
-                        {item.speed}
-                      </td>
-                    ))}
-                  </tr>
-
-                  {/* キャンペーン */}
-                  <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-4 px-5 font-bold text-gray-600 bg-gray-50">
-                      🎁 特典
-                    </td>
-                    {rankingItems.map((item) => (
-                      <td key={item.rank} className="py-4 px-5 text-center">
-                        <span className="text-xs font-bold text-gray-500">
-                          {item.reward.label}
-                        </span>
-                        <div className="text-red-500 font-black">
-                          {item.reward.value}
-                        </div>
-                      </td>
-                    ))}
-                  </tr>
-
-                  {/* こんな人向け */}
-                  <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-4 px-5 font-bold text-gray-600 bg-gray-50">
-                      👤 こんな人向け
-                    </td>
-                    {rankingItems.map((item) => (
-                      <td
-                        key={item.rank}
-                        className="py-4 px-5 text-center text-xs text-gray-600"
-                      >
-                        {item.description}
-                      </td>
-                    ))}
-                  </tr>
-
-                  {/* CTA */}
-                  <tr className="bg-gray-50">
-                    <td className="py-4 px-5 font-bold text-gray-600 bg-gray-100">
-                      申し込み
-                    </td>
-                    {rankingItems.map((item) => (
-                      <td key={item.rank} className="py-4 px-5 text-center">
-                        <Link
-                          href={item.affiliateUrl}
-                          target="_blank"
-                          rel="noopener noreferrer nofollow"
-                          className={`inline-block text-white font-black px-5 py-2 rounded-xl text-sm pop-btn transition-colors ${item.ctaColor}`}
-                        >
-                          公式へ →
-                        </Link>
-                      </td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <CompareClient rankingItems={rankingItems} />
 
             {/* Popular comparisons */}
             <div className="mt-10">

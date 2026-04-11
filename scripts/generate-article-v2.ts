@@ -273,6 +273,8 @@ const WRITER_SYSTEM_PROMPT = `あなたはインターネット回線業界に10
 - paragraph と list の text で以下を積極活用
   - **テキスト** → 太字（重要な数値・サービス名・結論などに。1段落に1〜3箇所）
   - ==テキスト== → 黄色マーカー（最強調キーフレーズ。1段落に0〜1箇所）
+  - [テキスト](URL) → インラインリンク（公式サイトへの自然な誘導に使う。1記事に2〜4箇所）
+    例: [NURO光の公式サイトはこちら](https://px.a8.net/svt/ejp?a8mat=2BJ8HV+6NXPKI+2VMU+64C3M)
 - heading2 / heading3 / callout / table / bar_chart には装飾記法を使わない
 
 【アフィリエイト方針】

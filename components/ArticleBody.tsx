@@ -7,15 +7,30 @@ type Props = {
   rankingItems: RankingItem[];
 };
 
-// **太字** と ==マーカー== をインラインレンダリング
+// **太字** / ==マーカー== / [テキスト](URL) をインラインレンダリング
 function renderInlineText(text: string): React.ReactNode[] {
-  const parts = text.split(/(\*\*[^*]+\*\*|==[^=]+==)/);
+  const parts = text.split(/(\*\*[^*]+\*\*|==[^=]+==|\[[^\]]+\]\([^)]+\))/);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return <strong key={i} className="font-bold text-gray-900">{part.slice(2, -2)}</strong>;
     }
     if (part.startsWith("==") && part.endsWith("==")) {
       return <mark key={i} className="bg-yellow-200 text-gray-900 rounded px-0.5">{part.slice(2, -2)}</mark>;
+    }
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch) {
+      const [, label, url] = linkMatch;
+      const isExternal = url.startsWith("http");
+      return (
+        <Link
+          key={i}
+          href={url}
+          {...(isExternal ? { target: "_blank", rel: "noopener noreferrer nofollow" } : {})}
+          className="text-orange-500 font-bold underline underline-offset-2 hover:text-orange-600"
+        >
+          {label}
+        </Link>
+      );
     }
     return part;
   });
@@ -84,17 +99,25 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
           case "ranking_cta": {
             const item = rankingItems[block.rankIndex];
             if (!item) return null;
+            const isTop = block.rankIndex === 0;
             return (
               <div
                 key={i}
-                className="bg-orange-50 border-2 border-orange-200 rounded-2xl p-4"
+                className={`rounded-2xl p-5 border-2 ${isTop ? "bg-gradient-to-br from-orange-50 to-red-50 border-orange-300" : "bg-orange-50 border-orange-200"}`}
               >
-                <p className="text-xs text-orange-500 font-bold mb-2">
-                  {block.rankIndex === 0 ? "🥇 編集部イチオシ" : `🏅 第${block.rankIndex + 1}位`}
-                </p>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-sm font-black">
+                    {isTop ? "🥇 編集部イチオシ" : `🏅 第${block.rankIndex + 1}位`}
+                  </span>
+                  {isTop && (
+                    <span className="text-xs bg-red-500 text-white font-black px-2 py-0.5 rounded-full animate-pulse">
+                      期間限定特典あり
+                    </span>
+                  )}
+                </div>
                 <div className="flex items-center justify-between gap-4 flex-wrap">
                   <div>
-                    <div className="font-black text-gray-800 text-lg">
+                    <div className="font-black text-gray-800 text-xl">
                       {item.name}
                     </div>
                     <div className="text-xs text-gray-500 mt-1">
@@ -110,14 +133,19 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
                         </span>
                       ))}
                     </div>
+                    {isTop && (
+                      <p className="text-xs text-red-500 font-bold mt-2">
+                        🎁 {item.reward.label} {item.reward.value}キャッシュバック中
+                      </p>
+                    )}
                   </div>
                   <Link
                     href={item.affiliateUrl}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className={`text-white font-black px-5 py-3 rounded-2xl pop-btn text-sm whitespace-nowrap transition-colors ${item.ctaColor}`}
+                    className={`text-white font-black px-6 py-4 rounded-2xl pop-btn text-base whitespace-nowrap transition-colors shadow-md ${item.ctaColor}`}
                   >
-                    公式サイトを見る →
+                    公式サイトで詳細を見る →
                   </Link>
                 </div>
               </div>

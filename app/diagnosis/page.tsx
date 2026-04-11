@@ -26,8 +26,8 @@ const questions = [
     options: [
       { value: "au", label: "au / UQモバイル", emoji: "🟠" },
       { value: "docomo", label: "ドコモ / ahamo", emoji: "🔴" },
-      { value: "softbank", label: "ソフトバンク / ワイモバ", emoji: "🟡" },
-      { value: "other", label: "その他 / 気にしない", emoji: "⚪" },
+      { value: "softbank", label: "ソフトバンク / ワイモバイル", emoji: "🟡" },
+      { value: "other", label: "その他 / 格安SIM", emoji: "⚪" },
     ],
   },
   {
@@ -41,15 +41,51 @@ const questions = [
       { value: "basic", label: "メール・SNS・検索", emoji: "📧" },
     ],
   },
+  {
+    id: "budget",
+    question: "月額料金の目安はどのくらいですか？",
+    emoji: "💰",
+    options: [
+      { value: "low", label: "できるだけ安く（〜4,000円）", emoji: "💚" },
+      { value: "mid", label: "標準的でOK（4,000〜5,500円）", emoji: "💛" },
+      { value: "high", label: "品質重視なら気にしない", emoji: "❤️" },
+    ],
+  },
+  {
+    id: "priority",
+    question: "回線を選ぶ際の最優先事項は？",
+    emoji: "🎯",
+    options: [
+      { value: "speed", label: "とにかく速度が速い", emoji: "⚡" },
+      { value: "price", label: "月額料金が安い", emoji: "💴" },
+      { value: "campaign", label: "キャッシュバックが多い", emoji: "🎁" },
+      { value: "stability", label: "安定して繋がる", emoji: "🛡️" },
+    ],
+  },
 ];
 
 function getRecommendation(answers: Record<string, Answer>) {
-  const { smartphone, usage } = answers;
+  const { smartphone, usage, budget, priority } = answers;
 
-  if (smartphone === "au") return rankingItems[1]; // auひかり
-  if (smartphone === "docomo") return rankingItems[2]; // ドコモ光
-  if (usage === "game") return rankingItems[0]; // NURO光（速度重視）
-  return rankingItems[0]; // デフォルト NURO光
+  // スマホキャリアとのセット割を最優先
+  if (smartphone === "au") return { item: rankingItems[1], reason: "auスマホとのセット割で毎月最大1,100円お得になります。" };
+  if (smartphone === "docomo") return { item: rankingItems[2], reason: "ドコモスマホとのセット割＋dポイントがたまります。" };
+  if (smartphone === "softbank") return { item: rankingItems[4], reason: "ソフトバンクスマホとのセット割で毎月最大1,100円割引されます。" };
+
+  // 速度・ゲーム重視
+  if (usage === "game" || priority === "speed") return { item: rankingItems[0], reason: "実測平均897Mbpsと業界トップクラスの速度でゲームや配信に最適です。" };
+
+  // コスパ重視
+  if (budget === "low" || priority === "price") return { item: rankingItems[5], reason: "月額3,610円〜と業界最安水準でコスパ重視の方に最適です。" };
+
+  // キャッシュバック重視
+  if (priority === "campaign") return { item: rankingItems[0], reason: "戸建て最大90,000円・マンション最大60,000円のキャッシュバックが受け取れます。" };
+
+  // テレワーク・安定性重視
+  if (usage === "work" || priority === "stability") return { item: rankingItems[0], reason: "独自回線で混雑しにくく、テレワークのビデオ会議も安定して快適です。" };
+
+  // デフォルト
+  return { item: rankingItems[0], reason: "速度・キャンペーン・安定性のすべてにおいてトップクラスでおすすめです。" };
 }
 
 export default function DiagnosisPage() {
@@ -63,7 +99,6 @@ export default function DiagnosisPage() {
   function handleAnswer(value: string) {
     const newAnswers = { ...answers, [currentQ.id]: value };
     setAnswers(newAnswers);
-
     if (step + 1 < questions.length) {
       setStep(step + 1);
     } else {
@@ -87,13 +122,13 @@ export default function DiagnosisPage() {
         <section className="bg-gradient-to-br from-purple-500 to-pink-400 text-white py-10 px-4 text-center">
           <div className="max-w-5xl mx-auto">
             <p className="text-sm font-bold bg-white/20 inline-block px-3 py-1 rounded-full mb-3">
-              ✨ 無料・3問だけ
+              ✨ 無料・5問だけ
             </p>
             <h1 className="text-3xl font-black mb-2">
               🔍 あなたにぴったりの回線診断
             </h1>
             <p className="text-sm opacity-90">
-              3つの質問に答えるだけで最適な回線がわかります
+              5つの質問に答えるだけで最適な回線がわかります
             </p>
           </div>
         </section>
@@ -159,9 +194,25 @@ export default function DiagnosisPage() {
                 </div>
 
                 {result && (
-                  <div className="mb-6">
-                    <RankingCard item={result} />
-                  </div>
+                  <>
+                    <div className="mb-4">
+                      <RankingCard item={result.item} />
+                    </div>
+                    {/* おすすめ理由 */}
+                    <div className="bg-purple-50 border border-purple-200 rounded-2xl p-4 mb-6">
+                      <p className="text-sm font-bold text-purple-700 mb-1">💡 おすすめの理由</p>
+                      <p className="text-sm text-gray-700">{result.reason}</p>
+                    </div>
+                    {/* 直接アフィリエイトCTA */}
+                    <Link
+                      href={result.item.affiliateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className={`block text-white font-black text-center py-4 rounded-2xl pop-btn text-lg shadow-md mb-4 transition-colors ${result.item.ctaColor}`}
+                    >
+                      {result.item.name}の公式サイトを見る →
+                    </Link>
+                  </>
                 )}
 
                 <div className="bg-white rounded-2xl p-5 border border-gray-200 mb-6 text-sm text-gray-600">
