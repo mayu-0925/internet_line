@@ -419,14 +419,52 @@ async function phase4GenerateThumbnail(
   }
   console.log("🖼️  Phase 4: サムネイル画像生成中（Nano Banana 2）...");
 
-  const categoryTheme: Record<string, string> = {
-    比較: "two people comparing documents side by side, blue and orange accents",
-    初心者: "friendly character learning about internet, green and teal accents",
-    お得情報: "gift boxes and coins floating, warm orange and yellow accents",
-    レビュー: "magnifying glass and checkmarks, neutral gray and blue accents",
-    速度: "rocket and lightning bolts, electric blue and purple accents",
+  const categoryThemes: Record<string, string[]> = {
+    比較: [
+      "two smartphones side by side with checkmarks and arrows, blue and orange accents",
+      "balance scale with wifi symbols on each side, teal and coral accents",
+      "split-screen layout with colorful icons on each half, indigo and amber accents",
+      "two overlapping circles (Venn diagram style) with network icons, sky blue and peach accents",
+      "clipboard with comparison checklist, stars and badges, navy and orange accents",
+    ],
+    初心者: [
+      "friendly character holding a glowing lightbulb, green and teal accents",
+      "open book with wifi signal and sparkles flying out, mint and yellow accents",
+      "graduation cap on a router with stars around it, purple and lime accents",
+      "smiling cloud character with signal bars, soft blue and green accents",
+      "map with a route leading to a wifi symbol, warm green and sky blue accents",
+    ],
+    お得情報: [
+      "coins and stars bursting from an envelope, warm orange and yellow accents",
+      "percent sign badge surrounded by sparkles and ribbons, red and gold accents",
+      "treasure chest with wifi icons floating out, amber and teal accents",
+      "calendar with sale tags and confetti, coral and yellow accents",
+      "shopping bag with lightning bolt and coins, orange and green accents",
+    ],
+    レビュー: [
+      "magnifying glass zooming into a star rating, neutral gray and blue accents",
+      "five stars on a podium with a ribbon badge, gold and indigo accents",
+      "clipboard with checkmarks and a thumb-up icon, slate blue and orange accents",
+      "detective character with magnifying glass and wifi signal, teal and coral accents",
+      "report card with A+ grade and sparkles, purple and yellow accents",
+    ],
+    速度: [
+      "rocket launching from a router with speed lines, electric blue and purple accents",
+      "stopwatch with lightning bolt and wifi signal, cyan and orange accents",
+      "speedometer gauge going to maximum with sparks, red and blue accents",
+      "cheetah silhouette with fiber optic streaks, green and electric blue accents",
+      "running character holding a wifi flag, yellow and indigo accents",
+    ],
   };
-  const theme = categoryTheme[category] ?? "fiber optic cables glowing, modern blue accents";
+  const defaultThemes = [
+    "fiber optic cables glowing with colorful light trails, modern blue and purple accents",
+    "house with wifi signal and connected devices floating around it, teal and orange accents",
+    "network nodes connected by glowing lines forming a constellation, indigo and cyan accents",
+    "smartphone and laptop connected by a rainbow arc, pastel multicolor accents",
+    "globe with wifi signal rings expanding outward, sky blue and coral accents",
+  ];
+  const themes = categoryThemes[category] ?? defaultThemes;
+  const theme = themes[Math.floor(Math.random() * themes.length)];
 
   const prompt = `Flat vector illustration style blog thumbnail. Theme: ${theme}. Topic relates to: "${title}". Cute and friendly Japanese illustration style, pastel colors, simple shapes, rounded edges, minimalist background gradient. 文字は入れない。Absolutely no text, no letters, no numbers, no characters, no symbols of any kind anywhere in the image. 16:9 wide banner format.`;
 
