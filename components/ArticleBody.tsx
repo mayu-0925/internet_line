@@ -241,6 +241,26 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
               </div>
             );
 
+          case "related_articles":
+            return (
+              <div key={i} className="border border-gray-200 rounded-2xl p-5 bg-gray-50">
+                <p className="text-sm font-black text-gray-700 mb-3">📚 関連記事</p>
+                <ul className="space-y-2">
+                  {block.items.map((item, j) => (
+                    <li key={j}>
+                      <Link
+                        href={`/blog/${item.slug}`}
+                        className="flex items-center gap-2 text-sm text-orange-500 font-bold hover:text-orange-600 hover:underline underline-offset-2"
+                      >
+                        <span className="text-orange-300 flex-shrink-0">▶</span>
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+
           default:
             return null;
         }

@@ -285,7 +285,8 @@ const WRITER_SYSTEM_PROMPT = `あなたはインターネット回線業界に10
 async function phase3WriteArticle(
   topic: SelectedTopic,
   outline: ArticleOutline,
-  today: string
+  today: string,
+  existingArticles: { slug: string; title: string; category: string }[]
 ): Promise<object> {
   console.log("✍️  Phase 3: 記事本文生成中...");
 
@@ -328,6 +329,11 @@ ${outline.faqQuestions.map((q) => `- ${q}`).join("\n")}
 - 第6位：Biglobe光（rankIndex: 5）
 - 第7位：フレッツ光（rankIndex: 6）
 
+【内部リンク（関連記事）】
+以下の既存記事の中から、今回の記事テーマと関連性の高いものを2〜3件選び、
+記事の末尾（まとめの直後）に related_articles ブロックとして必ず含めること。
+${existingArticles.slice(0, 30).map((a) => `- slug: "${a.slug}", title: "${a.title}"`).join("\n")}
+
 【出力量の制約】
 - contentブロックの合計は20〜28個に収める（多すぎるとJSONが途切れる）
 - paragraphは1セクションにつき1〜2個まで
@@ -356,7 +362,8 @@ ${outline.faqQuestions.map((q) => `- ${q}`).join("\n")}
     { "type": "definition_list", "items": [{ "term": "名称", "description": "説明文" }] },
     { "type": "table", "headers": ["項目", "NURO光", "auひかり"], "rows": [["月額料金", "5,200円〜", "4,180円〜"]] },
     { "type": "bar_chart", "title": "グラフタイトル", "items": [{ "label": "NURO光", "value": 897, "unit": "Mbps", "color": "bg-orange-400" }] },
-    { "type": "heading3", "text": "小見出し" }
+    { "type": "heading3", "text": "小見出し" },
+    { "type": "related_articles", "items": [{ "slug": "existing-slug", "title": "既存記事タイトル" }] }
   ]
 }`;
 
@@ -521,7 +528,7 @@ async function main(): Promise<void> {
   console.log();
 
   // Phase 3: 記事本文生成
-  const article = await phase3WriteArticle(topic, outline, today) as Record<string, unknown>;
+  const article = await phase3WriteArticle(topic, outline, today, existingArticles) as Record<string, unknown>;
   console.log();
 
   // スラッグ重複チェック

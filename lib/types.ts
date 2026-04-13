@@ -23,7 +23,8 @@ export type ContentBlock =
   | { type: "table"; headers: string[]; rows: string[][] } // 比較表
   | { type: "bar_chart"; title: string; items: { label: string; value: number; unit: string; color: string }[] } // 棒グラフ
   | { type: "steps"; items: { title: string; description: string }[] } // 手順ステップ
-  | { type: "definition_list"; items: { term: string; description: string }[] }; // 用語：説明 形式
+  | { type: "definition_list"; items: { term: string; description: string }[] } // 用語：説明 形式
+  | { type: "related_articles"; items: { slug: string; title: string }[] }; // 関連記事リンク
 
 export type Article = {
   slug: string;
