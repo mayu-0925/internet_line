@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# http または non-www を https://www. に1ステップで統一
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.net-choice.jp%{REQUEST_URI} [R=301,L]
