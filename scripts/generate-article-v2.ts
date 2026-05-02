@@ -13,6 +13,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { GoogleGenAI } from "@google/genai";
 import fs from "fs";
 import path from "path";
+import { editorialData } from "../lib/data";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const genai = new GoogleGenAI({ apiKey: process.env.GOOGLE_AI_STUDIO_API_KEY });
@@ -272,7 +273,7 @@ async function phase2CreateOutline(
 // ----------------------------------------------------------------
 const WRITER_SYSTEM_PROMPT = `あなたはインターネット回線業界に10年以上携わる専門ライターです。
 光回線・home5G・モバイルWiFiの技術仕様・料金体系・各社の強み弱みを熟知しており、
-読者が最適な回線を選べるよう、正確でわかりやすい情報を提供します。
+実際に各社サービスへの申し込み・速度計測・問い合わせ検証を自ら行った体験をもとに情報を発信しています。
 
 【ライティング方針】
 - 読者はすでに契約意思がある前提で書く
@@ -286,6 +287,16 @@ const WRITER_SYSTEM_PROMPT = `あなたはインターネット回線業界に10
 - list は1記事で3〜4箇所まで。1つのitemsは3〜6個に抑える
 - 手順・ステップは steps ブロックを使う
 - 「名称：説明文」の対応は definition_list ブロックを使う
+
+【一次情報・体験談の組み込みルール】
+- 記事内に editorial_note ブロックを1〜2箇所挿入する（必須）
+- editorial_note には以下のような一次情報・体験談を書く
+  - 「編集部が実際に申し込んだところ〜」
+  - 「速度を計測したところ〜Mbpsでした」
+  - 「カスタマーサポートに問い合わせたところ〜」
+  - 「実際の請求明細を確認したところ〜」
+- 提供された実測データ・体験談データを積極的に引用する
+- 数値は具体的に（「高速」ではなく「下り平均897Mbps」）
 
 【テキスト装飾ルール】
 - paragraph と list の text で以下を積極活用
@@ -326,6 +337,13 @@ async function phase3WriteArticle(
 
 【含めるべきデータ・数値】
 ${outline.dataToInclude.join("\n")}
+
+【編集部の実測データ・体験談（editorial_noteに積極活用すること）】
+＜速度実測値＞
+${Object.entries(editorialData.speedTests).map(([name, d]) => `- ${name}：下り平均${d.down}Mbps・上り平均${d.up}Mbps（${d.testedAt}・${d.env}）`).join("\n")}
+
+＜体験談＞
+${Object.entries(editorialData.experiences).map(([name, text]) => `- ${name}：${text}`).join("\n")}
 
 【記事構成（アウトライン）】
 ${sectionsDesc}
@@ -381,6 +399,7 @@ ${existingArticles.slice(0, 30).map((a) => `- slug: "${a.slug}", title: "${a.tit
     { "type": "table", "headers": ["項目", "NURO光", "auひかり"], "rows": [["月額料金", "5,200円〜", "4,180円〜"]] },
     { "type": "bar_chart", "title": "グラフタイトル", "items": [{ "label": "NURO光", "value": 897, "unit": "Mbps", "color": "bg-orange-400" }] },
     { "type": "heading3", "text": "小見出し" },
+    { "type": "editorial_note", "text": "編集部が実際に申し込んだところ、〜でした。" },
     { "type": "related_articles", "items": [{ "slug": "existing-slug", "title": "既存記事タイトル" }] }
   ]
 }`;

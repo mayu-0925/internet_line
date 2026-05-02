@@ -7,7 +7,7 @@ import { siteAlert } from "@/lib/data";
 export const metadata: Metadata = {
   title: "お問い合わせ",
   description: "ネットえらびナビへのお問い合わせはこちらからどうぞ。",
-  alternates: { canonical: "https://www.net-choice.jp/contact" },
+  alternates: { canonical: "https://www.net-choice.jp/contact/" },
   robots: { index: false },
 };
 

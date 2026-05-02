@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import AlertBar from "@/components/AlertBar";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
@@ -14,6 +15,10 @@ import {
   rankingItems,
 } from "@/lib/data";
 import { getLatestArticles } from "@/lib/articles";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "https://www.net-choice.jp/" },
+};
 
 export default function Home() {
   const featuredItem = rankingItems[0];

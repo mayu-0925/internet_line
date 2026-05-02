@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "はじめての光回線 初心者ガイド",
   description:
     "光回線が初めての方向けにわかりやすく解説。選び方・申し込み方法・よくある疑問をまとめました。",
-  alternates: { canonical: "https://www.net-choice.jp/beginners" },
+  alternates: { canonical: "https://www.net-choice.jp/beginners/" },
 };
 
 const steps = [

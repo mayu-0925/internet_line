@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import StickyBottomCTA from "@/components/StickyBottomCTA";
 import ArticleBody from "@/components/ArticleBody";
 import ArticleSidebar from "@/components/ArticleSidebar";
+import AuthorProfile from "@/components/AuthorProfile";
 import Link from "next/link";
 import { siteAlert, rankingItems } from "@/lib/data";
 import { getAllArticles, getArticleBySlug, getAllSlugs } from "@/lib/articles";
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) return {};
-  const url = `${BASE_URL}/blog/${slug}`;
+  const url = `${BASE_URL}/blog/${slug}/`;
   return {
     title: article.title,
     description: article.excerpt,
@@ -185,6 +186,9 @@ export default async function BlogPostPage({ params }: Props) {
                   <p className="text-sm text-gray-400 mt-1">もうしばらくお待ちください</p>
                 </div>
               )}
+
+              {/* 著者プロフィール */}
+              <AuthorProfile />
 
               {/* 記事末尾のCTAバナー */}
               <div className="bg-orange-50 rounded-3xl p-5 border-2 border-orange-200 mt-8">

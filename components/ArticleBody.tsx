@@ -241,6 +241,17 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
               </div>
             );
 
+          case "editorial_note":
+            return (
+              <div key={i} className="bg-blue-50 border-l-4 border-blue-400 rounded-2xl p-4 flex gap-3">
+                <span className="text-2xl flex-shrink-0">📝</span>
+                <div>
+                  <p className="text-xs font-black text-blue-600 mb-1">編集部より</p>
+                  <p className="text-sm text-gray-700 leading-relaxed">{block.text}</p>
+                </div>
+              </div>
+            );
+
           case "related_articles":
             return (
               <div key={i} className="border border-gray-200 rounded-2xl p-5 bg-gray-50">

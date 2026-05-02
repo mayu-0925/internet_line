@@ -7,7 +7,7 @@ import { siteAlert } from "@/lib/data";
 export const metadata: Metadata = {
   title: "プライバシーポリシー",
   description: "ネットえらびナビのプライバシーポリシーについてご説明します。",
-  alternates: { canonical: "https://www.net-choice.jp/privacy" },
+  alternates: { canonical: "https://www.net-choice.jp/privacy/" },
   robots: { index: false },
 };
 
