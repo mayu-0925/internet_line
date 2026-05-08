@@ -2,3 +2,9 @@
 RewriteEngine On
 RewriteCond %{HTTP_HOST} ^net-choice\.jp$ [NC]
 RewriteRule ^ https://www.net-choice.jp%{REQUEST_URI} [R=301,L]
+
+# トレーリングスラッシュなしのディレクトリURLを1ステップでリダイレクト
+# （ファイル・既存ディレクトリは対象外）
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^(.+)$ %{REQUEST_URI}/ [R=301,L]

@@ -79,7 +79,7 @@ export default async function BlogPostPage({ params }: Props) {
   const relatedArticles = allArticles.filter((a) => a.slug !== slug).slice(0, 3);
   const featuredItem = rankingItems[0];
 
-  const articleUrl = `${BASE_URL}/blog/${slug}`;
+  const articleUrl = `${BASE_URL}/blog/${slug}/`;
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -117,7 +117,7 @@ export default async function BlogPostPage({ params }: Props) {
         "@type": "ListItem",
         position: 2,
         name: "記事一覧",
-        item: `${BASE_URL}/blog`,
+        item: `${BASE_URL}/blog/`,
       },
       {
         "@type": "ListItem",
