@@ -103,7 +103,7 @@
     {
       "type": "callout",
       "emoji": "🛠️",
-      "text": "開通工事の詳細な流れや所要時間については[光回線工事の内容・時間・立ち会いを徹底解説](/fiber-optic-construction-guide)で詳しく解説しています。"
+      "text": "開通工事の詳細な流れや所要時間については[光回線工事の内容・時間・立ち会いを徹底解説](/blog/fiber-optic-construction-guide/)で詳しく解説しています。"
     },
     {
       "type": "heading2",
@@ -140,7 +140,7 @@
     {
       "type": "callout",
       "emoji": "💡",
-      "text": "解約時の撤去工事費や違約金の節約方法については[光回線の解約手順と撤去工事の全知識](/hikari-kaisen-kaiyaku-tekkyokouji-tejun)を参考にしてください。"
+      "text": "解約時の撤去工事費や違約金の節約方法については[光回線の解約手順と撤去工事の全知識](/blog/hikari-kaisen-kaiyaku-tekkyokouji-tejun/)を参考にしてください。"
     },
     {
       "type": "heading2",
@@ -203,7 +203,7 @@
       "items": [
         "auひかり向き：au・UQスマホを家族複数回線で利用しており、提供エリア内に住んでいる人",
         "NURO光向き：速度・コスパ重視でSoftBankまたはNUROモバイルユーザー、あるいはスマホ割不要で純粋に回線品質を求める人",
-        "どちらのエリアも非対応なら：フレッツ光コラボや[光回線おすすめランキング](/hikari-kaisen-osusume-ranking-2026)で代替回線を比較するのがおすすめ"
+        "どちらのエリアも非対応なら：フレッツ光コラボや[光回線おすすめランキング](/blog/hikari-kaisen-osusume-ranking-2026/)で代替回線を比較するのがおすすめ"
       ]
     },
     {

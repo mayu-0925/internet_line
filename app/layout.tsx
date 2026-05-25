@@ -77,7 +77,7 @@ const websiteJsonLd = {
       url: BASE_URL,
       logo: {
         "@type": "ImageObject",
-        url: `${BASE_URL}/favicon.ico`,
+        url: `${BASE_URL}/icon`,
       },
     },
   ],

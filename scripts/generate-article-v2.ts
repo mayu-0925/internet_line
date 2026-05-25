@@ -310,6 +310,8 @@ const WRITER_SYSTEM_PROMPT = `あなたはインターネット回線業界に10
   - ==テキスト== → 黄色マーカー（最強調キーフレーズ。1段落に0〜1箇所）
   - [テキスト](URL) → インラインリンク（公式サイトへの自然な誘導に使う。1記事に2〜4箇所）
     例: [NURO光の公式サイトはこちら](https://px.a8.net/svt/ejp?a8mat=2BJ8HV+6NXPKI+2VMU+64C3M)
+    【重要】サイト内記事へのリンクは必ず /blog/スラッグ/ の形式にする（例: /blog/hikari-kaisen-osusume-ranking-2026/）
+    /スラッグ だけ（/blog/ なし）のリンクは404になるため絶対に使わない
 - heading2 / heading3 / callout / table / bar_chart には装飾記法を使わない
 
 【アフィリエイト方針】
