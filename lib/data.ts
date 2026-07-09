@@ -1,4 +1,5 @@
 import type { RankingItem, Article, SiteAlert, HeroStat, HowToStep, ContentBlock } from "./types";
+import { currentMonthEnd } from "./date";
 
 // 記事本文データ（slug をキーとして管理）
 // 自動生成パイプラインからはここに ContentBlock[] を流し込む
@@ -108,7 +109,7 @@ export const editorialData = {
 // サイト全体のアラートバー
 // -------------------------------------------------------
 export const siteAlert: SiteAlert = {
-  message: "🎉 【7月末まで】戸建て最大90,000円・マンション最大60,000円キャッシュバック実施中！",
+  message: `🎉 【${currentMonthEnd()}】戸建て最大90,000円・マンション最大60,000円キャッシュバック実施中！`,
   linkText: "今すぐ申し込む",
   linkHref: "https://px.a8.net/svt/ejp?a8mat=2BJ8HV+6NXPKI+2VMU+64C3M",
 };

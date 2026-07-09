@@ -15,3 +15,8 @@ export function currentYearMonth(): string {
   const d = nowJST();
   return `${d.getUTCFullYear()}年${d.getUTCMonth() + 1}月`;
 }
+
+/** ビルド時の「X月末まで」テキストを返す（JST基準） */
+export function currentMonthEnd(): string {
+  return `${nowJST().getUTCMonth() + 1}月末まで`;
+}
