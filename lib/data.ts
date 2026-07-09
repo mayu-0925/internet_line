@@ -108,8 +108,8 @@ export const editorialData = {
 // サイト全体のアラートバー
 // -------------------------------------------------------
 export const siteAlert: SiteAlert = {
-  message: "🎉 今なら戸建て最大90,000円・マンション最大60,000円キャッシュバック実施中！",
-  linkText: "詳細を見る",
+  message: "🎉 【7月末まで】戸建て最大90,000円・マンション最大60,000円キャッシュバック実施中！",
+  linkText: "今すぐ申し込む",
   linkHref: "https://px.a8.net/svt/ejp?a8mat=2BJ8HV+6NXPKI+2VMU+64C3M",
 };
 

@@ -204,14 +204,19 @@ export default function DiagnosisPage() {
                       <p className="text-sm text-gray-700">{result.reason}</p>
                     </div>
                     {/* 直接アフィリエイトCTA */}
-                    <Link
-                      href={result.item.affiliateUrl}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className={`block text-white font-black text-center py-4 rounded-2xl pop-btn text-lg shadow-md mb-4 transition-colors ${result.item.ctaColor}`}
-                    >
-                      {result.item.name}の公式サイトを見る →
-                    </Link>
+                    <div className="mb-4">
+                      <Link
+                        href={result.item.affiliateUrl}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className={`block text-white font-black text-center py-4 rounded-2xl pop-btn text-lg shadow-md transition-colors ${result.item.ctaColor}`}
+                      >
+                        今すぐ{result.item.name}に申し込む →
+                      </Link>
+                      <p className="text-xs text-center text-gray-400 mt-2">
+                        ✓ このリンクからの申し込みがキャッシュバック特典の対象です
+                      </p>
+                    </div>
                   </>
                 )}
 

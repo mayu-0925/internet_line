@@ -86,14 +86,21 @@ export default function RankingCard({ item }: Props) {
               {item.reward.value}
             </div>
           </div>
-          <Link
-            href={item.affiliateUrl}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className={`text-white font-black px-7 py-3 rounded-2xl pop-btn text-sm whitespace-nowrap transition-colors ${item.ctaColor}`}
-          >
-            公式サイトを見る →
-          </Link>
+          <div className="flex flex-col items-center md:items-end gap-1">
+            <Link
+              href={item.affiliateUrl}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className={`text-white font-black px-7 py-3 rounded-2xl pop-btn text-sm whitespace-nowrap transition-colors ${item.ctaColor}`}
+            >
+              {isFirst ? "今すぐ無料で申し込む →" : "申し込みはこちら →"}
+            </Link>
+            {isFirst && (
+              <p className="text-xs text-gray-400 text-center">
+                ✓ このリンクからの申し込みが特典対象
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

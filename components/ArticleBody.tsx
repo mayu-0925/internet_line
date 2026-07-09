@@ -139,14 +139,21 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
                       </p>
                     )}
                   </div>
-                  <Link
-                    href={item.affiliateUrl}
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
-                    className={`text-white font-black px-6 py-4 rounded-2xl pop-btn text-base whitespace-nowrap transition-colors shadow-md ${item.ctaColor}`}
-                  >
-                    公式サイトで詳細を見る →
-                  </Link>
+                  <div className="flex flex-col items-center gap-1">
+                    <Link
+                      href={item.affiliateUrl}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      className={`text-white font-black px-6 py-4 rounded-2xl pop-btn text-base whitespace-nowrap transition-colors shadow-md ${item.ctaColor}`}
+                    >
+                      {isTop ? "今すぐ申し込む →" : "申し込みはこちら →"}
+                    </Link>
+                    {isTop && (
+                      <p className="text-xs text-gray-500 mt-1">
+                        ✓ このリンクからの申し込みが特典対象
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             );
