@@ -205,7 +205,7 @@ async function main(): Promise<void> {
 
   const allSlugs = allFiles.map((f) => path.basename(f, ".json"));
 
-  let targets: string[];
+  let targets: string[] = [];
 
   if (targetSlug) {
     targets = allFiles.filter((f) => path.basename(f, ".json") === targetSlug);
@@ -214,22 +214,47 @@ async function main(): Promise<void> {
       process.exit(1);
     }
   } else {
-    // updatedAt が古い順（未設定は publishedAt で比較）にソートして N 件選ぶ
-    const filesWithDate = allFiles.map((f) => {
-      const data = JSON.parse(fs.readFileSync(f, "utf-8"));
-      const lastUpdated = data.updatedAt ?? data.publishedAt ?? "2000-01-01";
-      return { file: f, lastUpdated };
-    });
+    // Search Console 分析スクリプトが出力した優先スラッグがあればそれを使う
+    const priorityFile = path.join(process.cwd(), "content/gsc-priority-slugs.json");
+    let usedPriority = false;
 
-    filesWithDate.sort((a, b) => a.lastUpdated.localeCompare(b.lastUpdated));
-    targets = filesWithDate.slice(0, rewriteCount).map((f) => f.file);
+    if (fs.existsSync(priorityFile)) {
+      const prioritySlugs: string[] = JSON.parse(fs.readFileSync(priorityFile, "utf-8"));
+      const priorityFiles = prioritySlugs
+        .map((slug) => allFiles.find((f) => path.basename(f, ".json") === slug))
+        .filter((f): f is string => f !== undefined)
+        .slice(0, rewriteCount);
 
-    console.log(`📅 最終更新が古い ${rewriteCount} 件をリライトします:`);
-    targets.forEach((f) => {
-      const data = JSON.parse(fs.readFileSync(f, "utf-8"));
-      console.log(`   - ${data.title}（最終更新: ${data.updatedAt ?? data.publishedAt}）`);
-    });
-    console.log();
+      if (priorityFiles.length > 0) {
+        targets = priorityFiles;
+        usedPriority = true;
+        console.log(`🎯 Search Console 優先リストから ${targets.length} 件をリライトします:`);
+        targets.forEach((f) => {
+          const data = JSON.parse(fs.readFileSync(f, "utf-8"));
+          console.log(`   - ${data.title}`);
+        });
+        console.log();
+      }
+    }
+
+    if (!usedPriority) {
+      // 優先ファイルがない場合は updatedAt が古い順
+      const filesWithDate = allFiles.map((f) => {
+        const data = JSON.parse(fs.readFileSync(f, "utf-8"));
+        const lastUpdated = data.updatedAt ?? data.publishedAt ?? "2000-01-01";
+        return { file: f, lastUpdated };
+      });
+
+      filesWithDate.sort((a, b) => a.lastUpdated.localeCompare(b.lastUpdated));
+      targets = filesWithDate.slice(0, rewriteCount).map((f) => f.file);
+
+      console.log(`📅 最終更新が古い ${rewriteCount} 件をリライトします:`);
+      targets.forEach((f) => {
+        const data = JSON.parse(fs.readFileSync(f, "utf-8"));
+        console.log(`   - ${data.title}（最終更新: ${data.updatedAt ?? data.publishedAt}）`);
+      });
+      console.log();
+    }
   }
 
   for (const file of targets) {

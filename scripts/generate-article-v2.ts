@@ -54,13 +54,21 @@ interface SelectedTopic {
 
 async function phase1SelectTopic(
   existingArticles: { slug: string; title: string; category: string }[],
-  today: string
+  today: string,
+  priorityTopics: { query: string; impressions: number; position: number }[] = []
 ): Promise<SelectedTopic> {
   console.log("🔍 Phase 1: キーワード・トピック選定中...");
 
   const existingList = existingArticles
     .map((a) => `- ${a.slug}: 「${a.title}」(${a.category})`)
     .join("\n");
+
+  const prioritySection =
+    priorityTopics.length > 0
+      ? `\n【最優先候補（Search Console 実データ：インプレッション数が多いのに記事がないクエリ）】\n${priorityTopics
+          .map((t) => `- 「${t.query}」（${t.impressions}imp・平均${t.position}位）`)
+          .join("\n")}\n上記クエリに対応する記事がまだ存在しないなら、これらを最優先で選ぶこと。\n`
+      : "";
 
   const systemPrompt = `あなたはSEO・コンテンツ戦略の専門家です。
 光回線アフィリエイトサイト「ネットえらびナビ」の記事企画を担当しています。
@@ -73,7 +81,7 @@ async function phase1SelectTopic(
 今日の日付: ${today}`;
 
   const userPrompt = `以下の既存記事と重複しない、新しい記事テーマを1つ選定してください。
-
+${prioritySection}
 【既存記事一覧】
 ${existingList}
 
@@ -564,8 +572,18 @@ async function main(): Promise<void> {
   const existingArticles = loadExistingArticles();
   console.log(`📚 既存記事数: ${existingArticles.length}件\n`);
 
+  // Search Console 優先クエリの読み込み
+  const priorityTopicsFile = path.join(process.cwd(), "content/gsc-priority-topics.json");
+  let priorityTopics: { query: string; impressions: number; position: number }[] = [];
+  if (fs.existsSync(priorityTopicsFile)) {
+    priorityTopics = JSON.parse(fs.readFileSync(priorityTopicsFile, "utf-8"));
+    if (priorityTopics.length > 0) {
+      console.log(`🎯 Search Console 優先クエリ: ${priorityTopics.length}件を Phase 1 に注入\n`);
+    }
+  }
+
   // Phase 1: キーワード・トピック選定
-  const topic = await phase1SelectTopic(existingArticles, today);
+  const topic = await phase1SelectTopic(existingArticles, today, priorityTopics);
   console.log();
 
   // Phase 2: 記事構成設計
