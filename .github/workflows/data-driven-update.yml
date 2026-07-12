@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      id-token: write   # Workload Identity Federation に必要
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -25,6 +26,24 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      # WIF_PROVIDER が設定されているか確認
+      - name: Check Workload Identity configuration
+        id: wif-check
+        run: |
+          if [ -n "$WIF_PROVIDER" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          WIF_PROVIDER: ${{ secrets.WIF_PROVIDER }}
+
+      # Workload Identity Federation で認証（WIF_PROVIDER シークレットが設定されている場合のみ）
+      - name: Authenticate to Google Cloud (Workload Identity)
+        if: steps.wif-check.outputs.enabled == 'true'
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
 
       # Step 1: GSC + GA4 データを分析して優先ファイルを生成
       - name: Analyze Search Console & GA4
@@ -59,16 +78,22 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          CHANGED=$(git status --short content/articles/ public/thumbnails/ 2>/dev/null | awk '{print $2}')
-          if [ -z "$CHANGED" ]; then
+          # まずステージング（リベース前に行う）
+          git add content/articles/ public/thumbnails/ 2>/dev/null || true
+
+          if git diff --staged --quiet; then
             echo "変更なし"
             exit 0
           fi
 
           for i in 1 2 3; do
             echo "--- push 試行 $i/3 ---"
+            # 未ステージの変更（優先ファイル削除残骸など）をクリア
+            git restore . 2>/dev/null || git checkout -- . 2>/dev/null || true
+            git clean -fd -- content/ 2>/dev/null || true
             git fetch origin main
             git rebase origin/main
+            # リベース後に再ステージ（念のため）
             git add content/articles/ public/thumbnails/ 2>/dev/null || true
             if git diff --staged --quiet; then
               echo "ステージング済み変更なし"
