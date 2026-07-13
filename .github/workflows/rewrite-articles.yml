@@ -29,30 +29,27 @@ jobs:
       - name: Rewrite all articles
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: npx tsx scripts/rewrite-articles.ts
+        run: npx tsx scripts/rewrite-articles.ts --count 2
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          if git diff --quiet content/articles/; then
+          git add content/articles/
+          if git diff --staged --quiet; then
             echo "変更なし"
             exit 0
           fi
+          git commit -m "refactor: 既存記事を最新プロンプトでリライト"
 
           for i in 1 2 3; do
             echo "--- push試行 $i/3 ---"
-            git stash
+            git push origin main && exit 0
+            echo "push失敗。リモートの変更を取り込んで再試行..."
             git fetch origin main
             git rebase origin/main
-            git stash pop
-            git add content/articles/
-            git commit -m "refactor: 既存記事を最新プロンプトでリライト"
-            git push origin main && exit 0
-            echo "push失敗。10秒後にリトライ..."
-            git reset HEAD~1
-            sleep 10
+            sleep 5
           done
           echo "3回リトライしましたが失敗しました"
           exit 1

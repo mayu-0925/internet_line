@@ -2,8 +2,8 @@ name: 記事自動生成
 
 on:
   schedule:
-    - cron: "0 21 * * *" # 毎朝6時（JST）に実行
-    - cron: "0 7 * * *"  # 毎日16時（JST）に実行
+    - cron: "0 21 * * 2" # 毎週火曜 朝6時（JST）に実行
+    - cron: "0 21 * * 5" # 毎週金曜 朝6時（JST）に実行
   workflow_dispatch:      # 手動実行も可能
 
 jobs:
@@ -50,22 +50,22 @@ jobs:
             exit 0
           fi
 
+          git add content/articles/
+          git add public/thumbnails/ 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "新しい記事はありません"
+            exit 0
+          fi
+          ARTICLE_COUNT=$(ls content/articles/*.json | wc -l)
+          git commit -m "feat: 記事を自動生成（計${ARTICLE_COUNT}件）"
+
           for i in 1 2 3; do
             echo "--- push試行 $i/3 ---"
+            git push origin main && exit 0
+            echo "push失敗。リモートの変更を取り込んで再試行..."
             git fetch origin main
             git rebase origin/main
-            git add content/articles/
-            git add public/thumbnails/ 2>/dev/null || true
-            if git diff --staged --quiet; then
-              echo "新しい記事はありません"
-              exit 0
-            fi
-            ARTICLE_COUNT=$(ls content/articles/*.json | wc -l)
-            git commit -m "feat: 記事を自動生成（計${ARTICLE_COUNT}件）"
-            git push origin main && exit 0
-            echo "push失敗。10秒後にリトライします..."
-            git reset HEAD~1
-            sleep 10
+            sleep 5
           done
           echo "3回リトライしましたが失敗しました"
           exit 1
