@@ -54,7 +54,7 @@ jobs:
           set net:reconnect-interval-base 5
           set ftp:passive-mode on
           set mirror:parallel-transfer-count 4
-          mirror --reverse --delete --verbose --no-perms --include-all --exclude '.DS_Store' ./out/ $FTP_SERVER_DIR
+          mirror --reverse --delete --verbose --no-perms --exclude '.DS_Store' ./out/ $FTP_SERVER_DIR
           quit
           EOF
 
