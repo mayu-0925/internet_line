@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
+import NuroCTA from "./NuroCTA";
 
 export const metadata: Metadata = {
   title: "NURO光 公式キャンペーン | 戸建て最大90,000円キャッシュバック",
@@ -92,14 +93,7 @@ export default function NuroKillerPage() {
           </div>
 
           {/* CTA（ファースト） */}
-          <Link
-            href={AFFILIATE_URL}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className="block bg-orange-400 hover:bg-orange-500 text-white font-black text-center py-4 rounded-2xl text-lg shadow-md transition-colors pop-btn"
-          >
-            今すぐNURO光に申し込む →
-          </Link>
+          <NuroCTA href={AFFILIATE_URL} position="first" />
           <p className="text-xs text-center text-gray-400 -mt-3">
             ✓ このボタンからの申し込みがキャッシュバックの対象です
           </p>
@@ -212,14 +206,7 @@ export default function NuroKillerPage() {
           </div>
 
           {/* CTA（セカンド） */}
-          <Link
-            href={AFFILIATE_URL}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            className="block bg-orange-400 hover:bg-orange-500 text-white font-black text-center py-4 rounded-2xl text-lg shadow-md transition-colors pop-btn"
-          >
-            今すぐNURO光に申し込む →
-          </Link>
+          <NuroCTA href={AFFILIATE_URL} position="second" />
 
           {/* 広告・注意事項 */}
           <div className="text-xs text-gray-400 text-center space-y-1 pb-4">
