@@ -111,7 +111,7 @@ export const editorialData = {
 export const siteAlert: SiteAlert = {
   message: `🎉 【${currentMonthEnd()}】戸建て最大90,000円・マンション最大60,000円キャッシュバック実施中！`,
   linkText: "今すぐ申し込む",
-  linkHref: "/go/nuro/",
+  linkHref: "https://px.a8.net/svt/ejp?a8mat=2BJ8HV+6NXPKI+2VMU+64C3M",
 };
 
 // -------------------------------------------------------
@@ -171,7 +171,7 @@ export const rankingItems: RankingItem[] = [
       { text: "🎁 工事費無料", variant: "warm" },
     ],
     reward: { label: "戸建て最大", value: "90,000円" },
-    affiliateUrl: "/go/nuro/",
+    affiliateUrl: "https://px.a8.net/svt/ejp?a8mat=2BJ8HV+6NXPKI+2VMU+64C3M",
     ctaColor: "bg-orange-400 hover:bg-orange-500",
     badgeGradient: "bg-yellow-400",
   },
