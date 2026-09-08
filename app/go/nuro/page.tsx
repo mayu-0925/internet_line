@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import NuroCTA from "./NuroCTA";
+import { currentMonthEnd } from "@/lib/date";
 
 export const metadata: Metadata = {
   title: "NURO光 公式キャンペーン | 戸建て最大90,000円キャッシュバック",
@@ -47,9 +48,9 @@ export default function NuroKillerPage() {
       <Header />
       <main className="min-h-screen bg-gray-50">
 
-        {/* キャンペーンバナー */}
+        {/* 締切バナー */}
         <div className="bg-red-500 text-white text-center py-2.5 px-4 text-sm font-bold">
-          🎉 期間限定｜戸建て最大90,000円 / マンション最大60,000円 キャッシュバック実施中
+          ⏰ キャンペーン締切：{currentMonthEnd()}｜戸建て最大90,000円 / マンション最大60,000円
         </div>
 
         <div className="max-w-xl mx-auto px-4 py-8 space-y-5">

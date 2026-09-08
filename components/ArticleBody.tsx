@@ -95,6 +95,10 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
             const item = rankingItems[block.rankIndex];
             if (!item) return null;
             const isTop = block.rankIndex === 0;
+            // NURO光（rank 0）は専用ランディングページ経由でコンバージョン率を高める
+            const ctaHref = isTop ? "/go/nuro/" : item.affiliateUrl;
+            const ctaTarget = isTop ? "_self" : "_blank";
+            const ctaRel = isTop ? undefined : "noopener noreferrer nofollow";
             return (
               <div
                 key={i}
@@ -122,16 +126,16 @@ export default function ArticleBody({ blocks, rankingItems }: Props) {
                   </div>
                   <div className="flex flex-col items-center gap-1">
                     <Link
-                      href={item.affiliateUrl}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
+                      href={ctaHref}
+                      target={ctaTarget}
+                      rel={ctaRel}
                       className={`text-white font-black px-6 py-4 rounded-2xl pop-btn text-base whitespace-nowrap transition-colors shadow-md ${item.ctaColor}`}
                     >
-                      {isTop ? "今すぐ申し込む →" : "申し込みはこちら →"}
+                      {isTop ? "キャッシュバック詳細を見る →" : "申し込みはこちら →"}
                     </Link>
                     {isTop && (
                       <p className="text-xs text-gray-400 mt-1">
-                        ✓ このリンクからの申し込みが特典対象
+                        ✓ 特典の受け取り方・申し込み手順を確認
                       </p>
                     )}
                   </div>

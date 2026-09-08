@@ -20,6 +20,10 @@ export default function NuroCTA({ href, position }: Props) {
     });
   };
 
+  const label = position === "first"
+    ? "工事費無料・最大90,000円を受け取る →"
+    : "NURO光に申し込む（無料）→";
+
   return (
     <a
       href={href}
@@ -28,7 +32,7 @@ export default function NuroCTA({ href, position }: Props) {
       onClick={handleClick}
       className="block bg-orange-400 hover:bg-orange-500 text-white font-black text-center py-4 rounded-2xl text-lg shadow-md transition-colors pop-btn"
     >
-      今すぐNURO光に申し込む →
+      {label}
     </a>
   );
 }
