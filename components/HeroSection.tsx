@@ -94,10 +94,8 @@ export default function HeroSection({ stats, featuredItem }: Props) {
                 </div>
               </div>
               <Link
-                href={featuredItem.affiliateUrl}
+                href="/go/nuro/"
                 className="block bg-orange-400 hover:bg-orange-500 text-white text-center font-black py-3 rounded-2xl pop-btn transition-colors"
-                target="_blank"
-                rel="noopener noreferrer nofollow"
               >
                 キャンペーン詳細を見る 🎁
               </Link>

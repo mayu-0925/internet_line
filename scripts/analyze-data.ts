@@ -241,17 +241,27 @@ async function main(): Promise<void> {
   const siteUrl = process.env.GSC_SITE_URL ?? "https://www.net-choice.jp/";
   const ga4PropertyId = process.env.GA4_PROPERTY_ID;
 
-  if (!serviceAccountJson) {
-    console.error("❌ GOOGLE_SERVICE_ACCOUNT_JSON が設定されていません。スキップします。");
+  // JSON キーか Workload Identity Federation（ADC）のどちらかが必要
+  const useAdc = !serviceAccountJson && process.env.GOOGLE_APPLICATION_CREDENTIALS;
+  if (!serviceAccountJson && !useAdc) {
+    console.error(
+      "❌ 認証情報が設定されていません。GOOGLE_SERVICE_ACCOUNT_JSON または " +
+      "Workload Identity Federation（GOOGLE_APPLICATION_CREDENTIALS）を設定してください。"
+    );
     process.exit(0);
   }
 
   console.log("📊 データ分析開始...\n");
+  if (useAdc) {
+    console.log("   認証方式: Workload Identity Federation（ADC）\n");
+  } else {
+    console.log("   認証方式: サービスアカウントJSON\n");
+  }
   const articles = getExistingArticles();
   console.log(`   既存記事: ${articles.length}件\n`);
 
   const auth = new google.auth.GoogleAuth({
-    credentials: JSON.parse(serviceAccountJson),
+    ...(serviceAccountJson ? { credentials: JSON.parse(serviceAccountJson) } : {}),
     scopes: [
       "https://www.googleapis.com/auth/webmasters.readonly",
       "https://www.googleapis.com/auth/analytics.readonly",

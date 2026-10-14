@@ -27,9 +27,7 @@ export default function StickyBottomCTA({ featuredItem }: { featuredItem: Rankin
           </p>
         </div>
         <Link
-          href={featuredItem.affiliateUrl}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
+          href="/go/nuro/"
           className="bg-orange-400 hover:bg-orange-500 text-white text-sm font-black py-3 px-5 rounded-2xl pop-btn transition-colors whitespace-nowrap flex-shrink-0"
         >
           今すぐ申し込む →

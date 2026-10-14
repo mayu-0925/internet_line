@@ -205,9 +205,7 @@ export default async function BlogPostPage({ params }: Props) {
                     </div>
                   </div>
                   <Link
-                    href={featuredItem.affiliateUrl}
-                    target="_blank"
-                    rel="noopener noreferrer nofollow"
+                    href="/go/nuro/"
                     className="bg-orange-400 hover:bg-orange-500 text-white font-black px-6 py-3 rounded-2xl pop-btn text-sm whitespace-nowrap transition-colors"
                   >
                     公式サイトを見る →
