@@ -30,7 +30,7 @@ export default function NuroCTA({ href, position }: Props) {
       target="_blank"
       rel="noopener noreferrer nofollow"
       onClick={handleClick}
-      className="block bg-orange-400 hover:bg-orange-500 text-white font-black text-center py-4 rounded-2xl text-lg shadow-md transition-colors pop-btn"
+      className="block bg-orange-400 hover:bg-orange-500 text-white font-black text-center py-5 rounded-2xl text-lg md:text-xl shadow-md transition-colors pop-btn"
     >
       {label}
     </a>
