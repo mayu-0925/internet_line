@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
-import NuroCTA from "./NuroCTA";
+import NuroCTA, { NuroStickyBar } from "./NuroCTA";
 import { currentMonthEnd } from "@/lib/date";
 
 export const metadata: Metadata = {
-  title: "NURO光 公式キャンペーン | 戸建て最大90,000円キャッシュバック",
+  title: "NURO光 公式キャンペーン | 最大65,000円現金キャッシュバック",
   description:
-    "NURO光の最新キャンペーン情報。戸建て最大90,000円キャッシュバック・工事費無料実施中。申し込み手順・よくある疑問・実測データをまとめました。",
+    "NURO光の最新キャンペーン情報。最大65,000円現金キャッシュバック・3か月無料体験・工事費実質無料実施中。申し込み手順・よくある疑問・実測データをまとめました。",
   robots: { index: false, follow: false },
 };
 
@@ -23,8 +23,9 @@ const compareRows = [
   { item: "最大速度", nuro: "10Gbps", au: "1Gbps", docomo: "1Gbps" },
   { item: "実測平均（下り）", nuro: "897Mbps", au: "743Mbps", docomo: "612Mbps" },
   { item: "月額料金", nuro: "5,200円〜", au: "4,180円〜", docomo: "4,400円〜" },
-  { item: "キャッシュバック", nuro: "最大90,000円", au: "最大30,000円", docomo: "最大20,000pt" },
-  { item: "工事費", nuro: "無料（通常44,000円）", au: "一部負担あり", docomo: "一部負担あり" },
+  { item: "キャッシュバック", nuro: "最大65,000円（現金）", au: "最大30,000円", docomo: "最大20,000pt" },
+  { item: "無料体験", nuro: "最大3か月", au: "なし", docomo: "なし" },
+  { item: "工事費", nuro: "実質無料（通常44,000円）", au: "一部負担あり", docomo: "一部負担あり" },
   { item: "回線種別", nuro: "独自回線（2線式）", au: "NTT回線", docomo: "NTT回線" },
 ];
 
@@ -82,7 +83,7 @@ const faqs = [
   },
   {
     q: "工事費は本当に無料？",
-    a: "現在のキャンペーン期間中は工事費（通常44,000円）が完全無料です。ただしキャンペーン終了後は有料になります。このページのボタンからの申し込みが対象です。",
+    a: "基本工事費（通常44,000円）は分割払い分が毎月の割引で相殺される「実質無料」です。継続利用すれば自己負担はありません。このページのボタンからの申し込みが対象です。",
     emoji: "✅",
   },
   {
@@ -120,7 +121,7 @@ const steps = [
   {
     day: "開通から3〜4ヶ月後",
     title: "キャッシュバック振込",
-    desc: "登録口座に最大90,000円が現金振込。確認メールが来たら受け取り完了。",
+    desc: "登録口座に最大65,000円が現金振込。案内メールが届いたら必ず口座登録を。登録を忘れると1円も受け取れません。",
     emoji: "💰",
   },
 ];
@@ -133,10 +134,10 @@ export default function NuroKillerPage() {
 
         {/* 締切バナー */}
         <div className="bg-red-500 text-white text-center py-3 px-4 text-base font-bold">
-          ⏰ キャンペーン締切：{currentMonthEnd()}｜戸建て最大90,000円 / マンション最大60,000円
+          ⏰ キャンペーン締切：{currentMonthEnd()}｜最大65,000円現金キャッシュバック＋3か月無料体験
         </div>
 
-        <div className="max-w-4xl mx-auto px-4 md:px-8 py-10 space-y-8">
+        <div className="max-w-4xl mx-auto px-4 md:px-8 pt-10 pb-28 space-y-8">
 
           {/* ヘッド */}
           <div className="text-center">
@@ -146,12 +147,12 @@ export default function NuroKillerPage() {
             <h1 className="text-3xl md:text-5xl font-black text-gray-900 leading-tight mb-4">
               NURO光 公式キャンペーン
               <br />
-              <span className="text-orange-500">戸建て最大90,000円</span>
+              <span className="text-orange-500">最大65,000円</span>
               <br className="md:hidden" />
-              キャッシュバック実施中
+              現金キャッシュバック実施中
             </h1>
             <p className="text-base md:text-lg text-gray-500">
-              工事費無料（通常44,000円）＋ 月¥5,200〜 ＋ 現金キャッシュバック
+              オプション加入不要 ＋ 最大3か月無料体験 ＋ 工事費実質無料（通常44,000円）
             </p>
           </div>
 
@@ -176,11 +177,14 @@ export default function NuroKillerPage() {
             </p>
           </div>
 
-          {/* CTA（ファースト） */}
+          {/* CTA（ファースト：エリア確認） */}
           <div>
             <NuroCTA href={AFFILIATE_URL} position="first" />
-            <p className="text-sm text-center text-gray-400 mt-2">
-              ✓ このボタンからの申し込みがキャッシュバック・工事費無料の対象です
+            <p className="text-sm text-center text-gray-500 mt-2 font-bold">
+              ✓ エリアを確認するだけでは申し込みは確定しません。料金も一切かかりません
+            </p>
+            <p className="text-sm text-center text-gray-400 mt-1">
+              ✓ このページ経由の申し込みだけがキャッシュバック・工事費実質無料の対象です
             </p>
           </div>
 
@@ -212,9 +216,12 @@ export default function NuroKillerPage() {
               </table>
             </div>
             <p className="text-sm text-gray-400 text-center py-3 px-4">
-              ※ 2026年9月時点の情報。実測値は編集部計測による目安値です。
+              ※ 2026年11月時点の情報。実測値は編集部計測による目安値です。
             </p>
           </div>
+
+          {/* CTA（比較表直後） */}
+          <NuroCTA href={AFFILIATE_URL} position="second" />
 
           {/* キャッシュバック詳細 + 申し込みの流れ（PCで2カラム） */}
           <div className="grid md:grid-cols-2 gap-6">
@@ -227,15 +234,18 @@ export default function NuroKillerPage() {
               <div className="p-6">
                 <div className="flex justify-around text-center mb-6">
                   <div>
-                    <div className="text-4xl font-black text-orange-500">90,000<span className="text-xl">円</span></div>
-                    <div className="text-sm text-gray-500 font-bold mt-1">戸建て</div>
+                    <div className="text-4xl font-black text-orange-500">65,000<span className="text-xl">円</span></div>
+                    <div className="text-sm text-gray-500 font-bold mt-1">現金キャッシュバック</div>
                   </div>
-                  <div className="text-gray-200 text-3xl self-center">/</div>
+                  <div className="text-gray-200 text-3xl self-center">＋</div>
                   <div>
-                    <div className="text-4xl font-black text-orange-400">60,000<span className="text-xl">円</span></div>
-                    <div className="text-sm text-gray-500 font-bold mt-1">マンション</div>
+                    <div className="text-4xl font-black text-orange-400">3<span className="text-xl">か月</span></div>
+                    <div className="text-sm text-gray-500 font-bold mt-1">無料体験</div>
                   </div>
                 </div>
+                <p className="text-sm text-center text-gray-500 mb-5 bg-gray-50 rounded-lg py-2 px-3">
+                  🔄 他社から乗り換えの方は<span className="font-bold text-orange-600">解約金を最大60,000円まで還元</span>
+                </p>
 
                 {/* コスト試算 */}
                 <div className="bg-orange-50 rounded-xl p-4 mb-5">
@@ -247,15 +257,15 @@ export default function NuroKillerPage() {
                     </div>
                     <div className="flex justify-between">
                       <span>工事費</span>
-                      <span className="font-bold text-green-600">0円（通常44,000円）</span>
+                      <span className="font-bold text-green-600">実質0円（通常44,000円）</span>
                     </div>
                     <div className="flex justify-between">
                       <span>キャッシュバック</span>
-                      <span className="font-bold text-green-600">−90,000円</span>
+                      <span className="font-bold text-green-600">−65,000円</span>
                     </div>
                     <div className="border-t border-orange-200 mt-2 pt-2 flex justify-between font-black text-orange-600">
                       <span>2年間の実質総額</span>
-                      <span>約34,800円（月割 1,450円）</span>
+                      <span>約59,800円（月割 約2,490円）</span>
                     </div>
                   </div>
                 </div>
@@ -289,11 +299,11 @@ export default function NuroKillerPage() {
                 </div>
 
                 <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded-xl p-3">
-                  <p className="text-sm text-yellow-800 font-bold mb-1">⚠️ 注意点</p>
+                  <p className="text-sm text-yellow-800 font-bold mb-1">⚠️ もらい忘れに注意</p>
                   <ul className="text-sm text-yellow-700 space-y-1">
-                    <li>・ 開通後に一定期間の継続利用が条件となる場合があります</li>
-                    <li>・ 特典金額はキャンペーン期間・住居タイプにより異なります</li>
-                    <li>・ 詳細条件は申し込み先の公式サイトでご確認ください</li>
+                    <li>・ 受け取りには案内メール到着後の<span className="font-bold">口座登録が必須</span>です。忘れると1円も受け取れません</li>
+                    <li>・ カレンダーに「開通日＋3か月後」を登録しておくのがおすすめ</li>
+                    <li>・ 特典金額・条件はキャンペーン期間により変わります。最新条件は申し込み先の公式ページでご確認ください</li>
                   </ul>
                 </div>
               </div>
@@ -347,6 +357,14 @@ export default function NuroKillerPage() {
             <p className="text-sm text-center text-gray-400 mt-3">※ 個人の感想です。速度・体験は環境により異なります。</p>
           </div>
 
+          {/* CTA（利用者の声直後） */}
+          <div>
+            <NuroCTA href={AFFILIATE_URL} position="first" />
+            <p className="text-sm text-center text-gray-400 mt-2">
+              ✓ エリア確認は1分・無料。エリア外でも費用は一切かかりません
+            </p>
+          </div>
+
           {/* よくある疑問（PCで2カラム） */}
           <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 shadow-sm">
             <h2 className="text-base font-black text-gray-700 mb-6 text-center">
@@ -381,11 +399,11 @@ export default function NuroKillerPage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-green-500 font-black flex-shrink-0">✓</span>
-                工事費は現在のキャンペーンで完全無料（通常44,000円）
+                工事費（通常44,000円）は実質無料・最大3か月の無料体験付き
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-green-500 font-black flex-shrink-0">✓</span>
-                キャッシュバック最大90,000円が現金で戻ってくる
+                キャッシュバック最大65,000円が現金で戻ってくる
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-green-500 font-black flex-shrink-0">✓</span>
@@ -399,7 +417,7 @@ export default function NuroKillerPage() {
             <p className="text-base text-red-500 font-bold mb-3">
               ⏰ キャンペーン終了：{currentMonthEnd()}
             </p>
-            <NuroCTA href={AFFILIATE_URL} position="second" />
+            <NuroCTA href={AFFILIATE_URL} position="final" />
             <p className="text-sm text-gray-400 mt-2">
               ✓ 申し込みは5〜10分・エリア外は無料キャンセル可
             </p>
@@ -415,6 +433,9 @@ export default function NuroKillerPage() {
           </div>
 
         </div>
+
+        {/* PC・SP共通の追従CTAバー */}
+        <NuroStickyBar href={AFFILIATE_URL} />
       </main>
     </>
   );

@@ -79,7 +79,7 @@ function getRecommendation(answers: Record<string, Answer>) {
   if (budget === "low" || priority === "price") return { item: rankingItems[5], reason: "月額3,610円〜と業界最安水準でコスパ重視の方に最適です。" };
 
   // キャッシュバック重視
-  if (priority === "campaign") return { item: rankingItems[0], reason: "戸建て最大90,000円・マンション最大60,000円のキャッシュバックが受け取れます。" };
+  if (priority === "campaign") return { item: rankingItems[0], reason: "最大65,000円の現金キャッシュバック＋最大3か月無料体験が受け取れます。" };
 
   // テレワーク・安定性重視
   if (usage === "work" || priority === "stability") return { item: rankingItems[0], reason: "独自回線で混雑しにくく、テレワークのビデオ会議も安定して快適です。" };

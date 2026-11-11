@@ -11,8 +11,9 @@ export default function AlertBar({ alert }: Props) {
       {alert.message}{" "}
       <Link
         href={alert.linkHref}
-        target="_blank"
-        rel="noopener noreferrer nofollow"
+        {...(alert.linkHref.startsWith("http")
+          ? { target: "_blank", rel: "noopener noreferrer nofollow" }
+          : {})}
         className="underline hover:opacity-80"
       >
         {alert.linkText}
